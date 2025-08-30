@@ -49,6 +49,7 @@ const validationPrompt = ai.definePrompt({
   name: 'validateSketchPrompt',
   input: {schema: z.object({sketchDataUri: z.string()})},
   output: {schema: ValidationSchema},
+  model: 'googleai/gemini-2.5-flash-image-preview',
   prompt: `You are an AI expert in architecture and building plans. Your task is to determine if the provided image is a valid architectural drawing, blueprint, or sketch. It should contain elements like walls, rooms, dimensions, or other standard architectural notations. A photo of a finished building is not a valid plan. A simple drawing of a house without any structural detail is also not a valid plan.
 
   Analyze the following image: {{media url=sketchDataUri}}`,
