@@ -37,8 +37,8 @@ declare global {
     interface IntrinsicElements {
       'dotlottie-player': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
         src: string;
-        autoplay: boolean;
-        loop: boolean;
+        autoplay: string;
+        loop: string;
         style?: React.CSSProperties;
       }, HTMLElement>;
     }
@@ -164,8 +164,8 @@ export function DashboardClient() {
                   <div className="flex items-center justify-center h-full">
                      <dotlottie-player
                         src="https://lottie.host/59b29fe7-a1fa-4e20-aa92-160e5d2dcc70/0RzXncpPt2.lottie"
-                        autoplay
-                        loop
+                        autoplay="true"
+                        loop="true"
                         style={{ width: '300px', height: '300px' }}
                       />
                   </div>
