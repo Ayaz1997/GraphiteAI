@@ -58,25 +58,17 @@ const validationPrompt = ai.definePrompt({
 export async function generate3DRenderFromSketch(
   input: Generate3DRenderFromSketchInput
 ): Promise<Generate3DRenderFromSketchOutput> {
-  try {
-    // First, validate the input image
-    const {output: validationResult} = await validationPrompt({sketchDataUri: input.sketchDataUri});
+  // First, validate the input image
+  const {output: validationResult} = await validationPrompt({sketchDataUri: input.sketchDataUri});
 
-    if (!validationResult?.isArchitecturalPlan) {
-      const reasoning = validationResult?.reasoning || 'The AI could not determine why.';
-      // We throw an error here which will be caught by the action and displayed to the user.
-      throw new Error(`The uploaded image is not a valid architectural plan. ${reasoning}`);
-    }
-
-    // If validation passes, proceed with generation
-    return await generate3DRenderFromSketchFlow(input);
-  } catch (error) {
-    // Re-throw the error so it can be caught by the server action
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error('An unexpected error occurred during validation or generation.');
+  if (!validationResult?.isArchitecturalPlan) {
+    const reasoning = validationResult?.reasoning || 'The AI could not determine why.';
+    // We throw an error here which will be caught by the action and displayed to the user.
+    throw new Error(`The uploaded image is not a valid architectural plan. ${reasoning}`);
   }
+
+  // If validation passes, proceed with generation
+  return await generate3DRenderFromSketchFlow(input);
 }
 
 const generate3DRenderFromSketchFlow = ai.defineFlow(
