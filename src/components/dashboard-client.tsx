@@ -134,15 +134,15 @@ export function DashboardClient() {
 
         {/* Main Content Column */}
         <div className="lg:col-span-8 xl:col-span-9 flex flex-col">
-            <Card className="flex-1 flex flex-col">
+            <Card className="flex-1 flex flex-col overflow-hidden">
                 <CardHeader>
                     <CardTitle>Generated Render</CardTitle>
                     <CardDescription>The primary render and its variations will appear here.</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
-                    <div className="relative aspect-square w-full h-full max-h-[calc(100%-64px)]">
+                    <div className="relative aspect-square w-full bg-muted rounded-lg overflow-hidden flex-1">
                         {formState.pending ? (
-                            <div className="flex items-center justify-center h-full bg-muted rounded-lg">
+                            <div className="flex items-center justify-center h-full">
                                 <Loader2 className="h-12 w-12 animate-spin text-primary"/>
                             </div>
                         ) : (
@@ -150,7 +150,7 @@ export function DashboardClient() {
                                 src={mainRenderDisplay}
                                 alt="Generated 3D Render"
                                 fill
-                                className="object-cover rounded-lg"
+                                className="object-cover"
                                 data-ai-hint="architectural render"
                             />
                         )}
