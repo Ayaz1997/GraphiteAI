@@ -152,7 +152,7 @@ export function DashboardClient() {
                     <Player
                       autoplay
                       loop
-                      src="https://assets-v2.lottiefiles.com/a/59b2427a-1150-4838-b174-8c4d2719c629/Q6Y69tkOXT.lottie"
+                      src="https://lottie.host/59b29fe7-a1fa-4e20-aa92-160e5d2dcc70/0RzXncpPt2.lottie"
                       style={{ height: '300px', width: '300px' }}
                     />
                   </div>
