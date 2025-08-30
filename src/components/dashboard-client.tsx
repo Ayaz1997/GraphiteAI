@@ -27,7 +27,7 @@ import { FileUploader } from './file-uploader';
 import { useToast } from '@/hooks/use-toast';
 import { generateRenderAction } from '@/lib/actions';
 import { useFormState } from 'react-dom';
-import { Separator } from './ui/separator';
+import { cn } from '@/lib/utils';
 
 const initialState = {
   renderDataUri: null,
@@ -40,8 +40,11 @@ export function DashboardClient() {
   const [moodBoard, setMoodBoard] = useState<string | null>(null);
   const [generatedAngles, setGeneratedAngles] = useState<string[]>([]);
   const [formState, formAction] = useFormState(generateRenderAction, initialState);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleAngleGeneration = () => {
+    if (!formState.renderDataUri) return;
+
     toast({
       title: 'Generating Angles...',
       description: 'This may take a moment. This is a placeholder.',
@@ -53,6 +56,10 @@ export function DashboardClient() {
       'https://picsum.photos/512/512?random=4',
     ];
     setGeneratedAngles(placeholderAngles);
+    // Set the main render as the first item in the angles list, so it's selectable
+    if (!selectedImage) {
+      setSelectedImage(formState.renderDataUri);
+    }
   };
   
   const handleHighQualityRender = () => {
@@ -62,19 +69,28 @@ export function DashboardClient() {
         variant: 'destructive'
     });
   }
+  
+  React.useEffect(() => {
+    if (formState.renderDataUri && !selectedImage) {
+      setSelectedImage(formState.renderDataUri);
+    }
+  }, [formState.renderDataUri, selectedImage]);
 
-  const mainRender = formState.renderDataUri || 'https://picsum.photos/1024/1024?random=1';
   const hasGeneratedRender = !!formState.renderDataUri;
+  const mainRenderDisplay = selectedImage || 'https://picsum.photos/seed/graphite/1024/1024';
+
+  const allRenders = hasGeneratedRender ? [formState.renderDataUri!, ...generatedAngles] : [];
+
 
   return (
     <div className="container mx-auto p-4 md:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-8rem)]">
         {/* Controls Column */}
         <div className="lg:col-span-4 xl:col-span-3">
           <Card className="sticky top-4">
             <CardHeader>
               <CardTitle className="font-headline text-2xl">Create Render</CardTitle>
-              <CardDescription>Upload your files and provide a prompt to generate a 3D model.</CardDescription>
+              <CardDescription>Upload files and provide a prompt to generate a 3D model.</CardDescription>
             </CardHeader>
             <CardContent>
               <form action={formAction} className="space-y-6">
@@ -97,7 +113,7 @@ export function DashboardClient() {
                   <Textarea
                     id="text-prompt"
                     name="textPrompt"
-                    placeholder="e.g., 'A modern two-story house with large windows, cedar siding, and a flat roof...'"
+                    placeholder="e.g., 'A modern two-story house with large windows...'"
                     rows={4}
                   />
                 </div>
@@ -118,74 +134,55 @@ export function DashboardClient() {
 
         {/* Main Content Column */}
         <div className="lg:col-span-8 xl:col-span-9">
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            {/* Main Render Display */}
-            <div className="xl:col-span-2">
-                <Card className="h-full">
-                    <CardHeader>
-                        <CardTitle>Generated Render</CardTitle>
-                        <CardDescription>This is the primary render generated from your inputs.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="relative aspect-square">
+            <Card className="h-full flex flex-col">
+                <CardHeader>
+                    <CardTitle>Generated Render</CardTitle>
+                    <CardDescription>The primary render and its variations will appear here.</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col gap-4">
+                    <div className="relative aspect-square flex-1">
                         {formState.pending ? (
                             <div className="flex items-center justify-center h-full bg-muted rounded-lg">
                                 <Loader2 className="h-12 w-12 animate-spin text-primary"/>
                             </div>
                         ) : (
                             <Image
-                                src={hasGeneratedRender ? mainRender : "https://picsum.photos/seed/graphite/1024/1024"}
+                                src={mainRenderDisplay}
                                 alt="Generated 3D Render"
                                 fill
                                 className="object-cover rounded-lg"
                                 data-ai-hint="architectural render"
                             />
                         )}
-                    </CardContent>
-                    <CardFooter className="flex-wrap gap-2 pt-6">
-                        <Button variant="outline" onClick={handleAngleGeneration} disabled={!hasGeneratedRender}>
-                            <Camera className="mr-2 h-4 w-4" /> Generate Angles
-                        </Button>
-                        <Button onClick={handleHighQualityRender} disabled={!hasGeneratedRender}>
-                            <Sparkles className="mr-2 h-4 w-4" /> High-Quality Render
-                        </Button>
-                        <Button variant="secondary" disabled={!hasGeneratedRender}>
-                            <Download className="mr-2 h-4 w-4" /> Export
-                        </Button>
-                    </CardFooter>
-                </Card>
-            </div>
-            
-            {/* Angles/Variations Display */}
-            <div className="xl:col-span-1">
-                 <Card>
-                    <CardHeader>
-                        <CardTitle>Variations</CardTitle>
-                        <CardDescription>Different angles and styles.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        {generatedAngles.length > 0 ? (
-                        <div className="grid grid-cols-2 gap-4">
-                            {generatedAngles.map((angleSrc, index) => (
-                            <div key={index} className="relative aspect-square">
-                                <Image
-                                src={angleSrc}
-                                alt={`Angle variation ${index + 1}`}
-                                fill
-                                className="object-cover rounded-md"
-                                data-ai-hint="architectural detail"
-                                />
-                            </div>
+                    </div>
+                    {allRenders.length > 0 && (
+                         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+                            {allRenders.map((imgSrc, index) => (
+                                <button key={index} onClick={() => setSelectedImage(imgSrc)} className={cn("relative aspect-square rounded-md overflow-hidden ring-offset-background ring-offset-2 focus:outline-none focus:ring-2 focus:ring-ring", { 'ring-2 ring-primary': selectedImage === imgSrc })}>
+                                    <Image
+                                        src={imgSrc}
+                                        alt={`Render variation ${index + 1}`}
+                                        fill
+                                        className="object-cover"
+                                        data-ai-hint="architectural detail"
+                                    />
+                                </button>
                             ))}
                         </div>
-                        ) : (
-                        <div className="text-center text-sm text-muted-foreground py-10">
-                            Click 'Generate Angles' to create variations of your design.
-                        </div>
-                        )}
-                    </CardContent>
-                </Card>
-            </div>
-          </div>
+                    )}
+                </CardContent>
+                <CardFooter className="flex-wrap gap-2 pt-6">
+                    <Button variant="outline" onClick={handleAngleGeneration} disabled={!hasGeneratedRender}>
+                        <Camera className="mr-2 h-4 w-4" /> Generate Angles
+                    </Button>
+                    <Button onClick={handleHighQualityRender} disabled={!hasGeneratedRender}>
+                        <Sparkles className="mr-2 h-4 w-4" /> High-Quality Render
+                    </Button>
+                    <Button variant="secondary" disabled={!hasGeneratedRender}>
+                        <Download className="mr-2 h-4 w-4" /> Export
+                    </Button>
+                </CardFooter>
+            </Card>
         </div>
       </div>
     </div>
