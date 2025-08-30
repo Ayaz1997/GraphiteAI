@@ -37,7 +37,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <div className="flex min-h-screen">
         <Sidebar>
           <SidebarHeader>
@@ -49,28 +49,28 @@ export default function DashboardLayout({
           <SidebarContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton href="/dashboard" isActive>
+                <SidebarMenuButton href="/dashboard" isActive tooltip="Dashboard">
                   <Home />
-                  Dashboard
+                  <span>Dashboard</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="#">
+                <SidebarMenuButton href="#" tooltip="New Project">
                   <SquarePen />
-                  New Project
+                  <span>New Project</span>
                   <SidebarMenuBadge>Beta</SidebarMenuBadge>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="#">
+                <SidebarMenuButton href="#" tooltip="My Renders">
                   <History />
-                  My Renders
+                  <span>My Renders</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="#">
+                <SidebarMenuButton href="#" tooltip="Favorites">
                   <Star />
-                  Favorites
+                  <span>Favorites</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -78,20 +78,20 @@ export default function DashboardLayout({
           <SidebarFooter>
              <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton href="#">
+                    <SidebarMenuButton href="#" tooltip="Credits">
                         <CreditCard />
-                        Credits
+                        <span>Credits</span>
                         <SidebarMenuBadge>12</SidebarMenuBadge>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <SidebarMenuButton href="#">
+                    <SidebarMenuButton href="#" tooltip="Settings">
                         <Settings />
-                        Settings
+                        <span>Settings</span>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <SidebarMenuButton>
+                    <SidebarMenuButton tooltip="User Account">
                         <Avatar className="h-7 w-7">
                             <AvatarImage src="https://picsum.photos/100" data-ai-hint="person face" />
                             <AvatarFallback>U</AvatarFallback>
