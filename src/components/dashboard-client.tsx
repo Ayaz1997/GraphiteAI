@@ -139,7 +139,7 @@ export function DashboardClient() {
                     <CardTitle>Generated Render</CardTitle>
                     <CardDescription>The primary render and its variations will appear here.</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col gap-4 min-h-0">
+                <CardContent className="flex-1 flex flex-col gap-4 min-h-0 justify-between">
                     <div className="relative bg-muted rounded-lg overflow-hidden flex-1">
                         {formState.pending ? (
                             <div className="flex items-center justify-center h-full">
