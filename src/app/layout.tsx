@@ -25,7 +25,7 @@ export default function RootLayout({
         <link rel="icon" href="/icon.svg" sizes="any" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon.svg" />
       </head>
-      <body className={cn('font-body antialiased min-h-screen bg-background')} suppressHydrationWarning={true}>
+      <body className={cn('font-body antialiased min-h-screen bg-background')}>
         {children}
         <Toaster />
       </body>
