@@ -20,7 +20,8 @@ const IncorporateMoodBoardStyleInputSchema = z.object({
     .array(z.string())
     .describe(
       "An array of mood board images as data URIs that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
+    )
+    .max(4),
   textPrompt: z.string().optional().describe('Optional text prompt to further refine the rendering style.'),
 });
 export type IncorporateMoodBoardStyleInput = z.infer<typeof IncorporateMoodBoardStyleInputSchema>;

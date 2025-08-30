@@ -28,6 +28,7 @@ import { useToast } from '@/hooks/use-toast';
 import { generateRenderAction } from '@/lib/actions';
 import { useFormState } from 'react-dom';
 import { cn } from '@/lib/utils';
+import { MultipleFileUploader } from './multiple-file-uploader';
 
 const initialState = {
   renderDataUri: null,
@@ -37,7 +38,7 @@ const initialState = {
 export function DashboardClient() {
   const { toast } = useToast();
   const [sketch, setSketch] = useState<string | null>(null);
-  const [moodBoard, setMoodBoard] = useState<string | null>(null);
+  const [moodBoards, setMoodBoards] = useState<(string | null)[]>([]);
   const [generatedAngles, setGeneratedAngles] = useState<string[]>([]);
   const [formState, formAction] = useFormState(generateRenderAction, initialState);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -106,7 +107,11 @@ export function DashboardClient() {
                     <Palette className="inline-block mr-2 h-4 w-4" />
                     Mood Board (Optional)
                   </Label>
-                  <FileUploader id="moodboard-upload" name="moodBoard" onFileLoad={setMoodBoard} />
+                  <MultipleFileUploader
+                    name="moodBoard"
+                    onFilesLoad={setMoodBoards}
+                    maxFiles={4}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="text-prompt">Text Prompt (Optional)</Label>

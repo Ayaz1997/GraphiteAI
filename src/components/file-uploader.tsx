@@ -11,12 +11,18 @@ interface FileUploaderProps {
   name: string;
   onFileLoad: (base64: string | null) => void;
   required?: boolean;
+  className?: string;
+  initialPreview?: string | null;
 }
 
-export function FileUploader({ id, name, onFileLoad, required = false }: FileUploaderProps) {
-  const [preview, setPreview] = useState<string | null>(null);
+export function FileUploader({ id, name, onFileLoad, required = false, className, initialPreview }: FileUploaderProps) {
+  const [preview, setPreview] = useState<string | null>(initialPreview || null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    setPreview(initialPreview || null);
+  }, [initialPreview]);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -71,7 +77,8 @@ export function FileUploader({ id, name, onFileLoad, required = false }: FileUpl
       <div
         className={cn(
           "relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted hover:bg-muted/80 transition-colors",
-          isDragging && "border-primary bg-accent/20"
+          isDragging && "border-primary bg-accent/20",
+          className
         )}
         onClick={() => fileInputRef.current?.click()}
         onDrop={handleDrop}
@@ -99,7 +106,7 @@ export function FileUploader({ id, name, onFileLoad, required = false }: FileUpl
           <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center">
             <UploadCloud className="w-8 h-8 mb-2 text-muted-foreground" />
             <p className="mb-1 text-sm text-muted-foreground">
-              <span className="font-semibold">Click to upload</span> or drag and drop
+              <span className="font-semibold">Click to upload</span>
             </p>
             <p className="text-xs text-muted-foreground">PNG, JPG, or GIF</p>
           </div>
@@ -113,7 +120,7 @@ export function FileUploader({ id, name, onFileLoad, required = false }: FileUpl
         className="hidden"
         onChange={handleFileChange}
         accept="image/png, image/jpeg, image/gif"
-        required={required}
+        required={required && !preview}
       />
       {/* Hidden input to hold base64 value for form submission */}
       {preview && <input type="hidden" name={`${name}DataUri`} value={preview} />}

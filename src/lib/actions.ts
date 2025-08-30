@@ -10,7 +10,7 @@ export type FormState = {
 
 const GenerateRenderSchema = z.object({
   sketchDataUri: z.string().min(1, 'Sketch is required.'),
-  moodBoardDataUri: z.string().optional(),
+  moodBoardDataUri: z.union([z.string(), z.array(z.string())]).optional(),
   textPrompt: z.string().optional(),
 });
 
@@ -21,7 +21,7 @@ export async function generateRenderAction(
   
   const validatedFields = GenerateRenderSchema.safeParse({
     sketchDataUri: formData.get('sketchDataUri'),
-    moodBoardDataUri: formData.get('moodBoardDataUri'),
+    moodBoardDataUri: formData.getAll('moodBoardDataUri[]').length > 0 ? formData.getAll('moodBoardDataUri[]') : formData.get('moodBoardDataUri'),
     textPrompt: formData.get('textPrompt'),
   });
 
@@ -37,7 +37,8 @@ export async function generateRenderAction(
 
     const result = await generate3DRenderFromSketch({
       sketchDataUri,
-      moodBoardDataUri,
+      // @ts-ignore
+      moodBoardDataUri: Array.isArray(moodBoardDataUri) ? moodBoardDataUri[0] : moodBoardDataUri,
       textPrompt,
     });
 
