@@ -31,7 +31,7 @@ export function MultipleFileUploader({ name, onFilesLoad, maxFiles }: MultipleFi
             id={`${name}-upload-${index}`}
             name={`${name}-${index}`}
             onFileLoad={(base64) => handleFileLoad(base64, index)}
-            className="h-24"
+            className="h-20"
             initialPreview={files[index]}
           />
         ))}

@@ -103,12 +103,9 @@ export function FileUploader({ id, name, onFileLoad, required = false, className
             </button>
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center">
-            <UploadCloud className="w-8 h-8 mb-2 text-muted-foreground" />
-            <p className="mb-1 text-sm text-muted-foreground">
-              <span className="font-semibold">Click to upload</span>
-            </p>
-            <p className="text-xs text-muted-foreground">PNG, JPG, or GIF</p>
+          <div className="flex flex-col items-center justify-center text-center">
+            <UploadCloud className="w-6 h-6 mb-1 text-muted-foreground" />
+            <p className="text-xs text-muted-foreground">PNG, JPG</p>
           </div>
         )}
       </div>
