@@ -10,7 +10,7 @@ export type FormState = {
 
 const GenerateRenderSchema = z.object({
   sketchDataUri: z.string().min(1, 'Sketch is required.'),
-  moodBoardDataUri: z.union([z.string(), z.array(z.string())]).optional(),
+  moodBoardDataUris: z.array(z.string()).optional(),
   textPrompt: z.string().optional(),
 });
 
@@ -19,9 +19,11 @@ export async function generateRenderAction(
   formData: FormData
 ): Promise<FormState> {
   
+  const moodBoards = formData.getAll('moodBoardDataUri[]').filter(item => typeof item === 'string' && item.length > 0) as string[];
+
   const validatedFields = GenerateRenderSchema.safeParse({
     sketchDataUri: formData.get('sketchDataUri'),
-    moodBoardDataUri: formData.getAll('moodBoardDataUri[]').length > 0 ? formData.getAll('moodBoardDataUri[]') : formData.get('moodBoardDataUri'),
+    moodBoardDataUris: moodBoards.length > 0 ? moodBoards : undefined,
     textPrompt: formData.get('textPrompt'),
   });
 
@@ -33,12 +35,11 @@ export async function generateRenderAction(
   }
 
   try {
-    const { sketchDataUri, moodBoardDataUri, textPrompt } = validatedFields.data;
+    const { sketchDataUri, moodBoardDataUris, textPrompt } = validatedFields.data;
 
     const result = await generate3DRenderFromSketch({
       sketchDataUri,
-      // @ts-ignore
-      moodBoardDataUri: Array.isArray(moodBoardDataUri) ? moodBoardDataUri[0] : moodBoardDataUri,
+      moodBoardDataUris,
       textPrompt,
     });
 

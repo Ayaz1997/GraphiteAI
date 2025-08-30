@@ -10,7 +10,6 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import wav from 'wav';
 
 const Generate3DRenderFromSketchInputSchema = z.object({
   sketchDataUri: z
@@ -18,11 +17,11 @@ const Generate3DRenderFromSketchInputSchema = z.object({
     .describe(
       "A 2D architectural sketch, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
-  moodBoardDataUri: z
-  .string()
+  moodBoardDataUris: z
+  .array(z.string())
   .optional()
   .describe(
-    "An optional mood board image, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+    "An optional array of mood board images, as data URIs that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
   ),
   textPrompt: z.string().optional().describe('Optional text prompt to refine the 3D render.'),
 });
@@ -51,14 +50,16 @@ const generate3DRenderFromSketchPrompt = ai.definePrompt({
   output: {schema: Generate3DRenderFromSketchOutputSchema},
   prompt: `You are an AI that generates low-resolution 3D renders of architectural designs based on 2D sketches.
 
-  {% if moodBoardDataUri %}
-  Incorporate the style and aesthetics from the following mood board:
-  {{media url=moodBoardDataUri}}
-  {% endif %}
+  {{#if moodBoardDataUris}}
+  Incorporate the style and aesthetics from the following mood board images:
+  {{#each moodBoardDataUris}}
+  {{media url=this}}
+  {{/each}}
+  {{/if}}
 
-  {% if textPrompt %}
+  {{#if textPrompt}}
   Refine the 3D render based on the following text prompt: {{{textPrompt}}}
-  {% endif %}
+  {{/if}}
 
   Generate a low-resolution 3D render from the following architectural sketch:
   {{media url=sketchDataUri}}
@@ -72,12 +73,19 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     outputSchema: Generate3DRenderFromSketchOutputSchema,
   },
   async input => {
+    
+    const promptParts: any[] = [{media: {url: input.sketchDataUri}}];
+    if (input.textPrompt) {
+        promptParts.push({text: input.textPrompt});
+    }
+    if (input.moodBoardDataUris) {
+        input.moodBoardDataUris.forEach(uri => {
+            promptParts.push({media: {url: uri}});
+        });
+    }
+
     const {media} = await ai.generate({
-      prompt: [
-        {media: {url: input.sketchDataUri}},
-        input.moodBoardDataUri ? {media: {url: input.moodBoardDataUri}} : {},
-        input.textPrompt ? {text: input.textPrompt} : {},
-      ],
+      prompt: promptParts,
       model: 'googleai/gemini-2.0-flash-preview-image-generation',
       config: {
         responseModalities: ['TEXT', 'IMAGE'],
