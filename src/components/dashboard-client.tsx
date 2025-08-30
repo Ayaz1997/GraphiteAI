@@ -155,7 +155,7 @@ export function DashboardClient() {
                                 src={mainRenderDisplay}
                                 alt="Generated 3D Render"
                                 fill
-                                className="object-cover"
+                                className="object-contain"
                                 data-ai-hint="architectural render"
                             />
                         )}
