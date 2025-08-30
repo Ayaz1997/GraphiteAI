@@ -18,23 +18,22 @@ export async function generateRenderAction(
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> {
-  
-  const moodBoards = formData.getAll('moodBoardDataUri[]').filter(item => typeof item === 'string' && item.length > 0) as string[];
-
-  const validatedFields = GenerateRenderSchema.safeParse({
-    sketchDataUri: formData.get('sketchDataUri'),
-    moodBoardDataUris: moodBoards.length > 0 ? moodBoards : undefined,
-    textPrompt: formData.get('textPrompt'),
-  });
-
-  if (!validatedFields.success) {
-    return {
-      renderDataUri: null,
-      error: validatedFields.error.flatten().fieldErrors.sketchDataUri?.[0] || 'Invalid input.',
-    };
-  }
-
   try {
+    const moodBoards = formData.getAll('moodBoardDataUri[]').filter(item => typeof item === 'string' && item.length > 0) as string[];
+
+    const validatedFields = GenerateRenderSchema.safeParse({
+      sketchDataUri: formData.get('sketchDataUri'),
+      moodBoardDataUris: moodBoards.length > 0 ? moodBoards : undefined,
+      textPrompt: formData.get('textPrompt'),
+    });
+
+    if (!validatedFields.success) {
+      return {
+        renderDataUri: null,
+        error: validatedFields.error.flatten().fieldErrors.sketchDataUri?.[0] || 'Invalid input.',
+      };
+    }
+
     const { sketchDataUri, moodBoardDataUris, textPrompt } = validatedFields.data;
 
     const result = await generate3DRenderFromSketch({
