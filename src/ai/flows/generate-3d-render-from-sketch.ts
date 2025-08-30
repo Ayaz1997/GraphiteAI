@@ -61,7 +61,8 @@ export async function generate3DRenderFromSketch(
   const {output: validationResult} = await validationPrompt({sketchDataUri: input.sketchDataUri});
 
   if (!validationResult?.isArchitecturalPlan) {
-    throw new Error(`The uploaded image is not a valid architectural plan. ${validationResult?.reasoning || ''}`);
+    const reasoning = validationResult?.reasoning || 'The AI could not determine why.';
+    throw new Error(`The uploaded image is not a valid architectural plan. ${reasoning}`);
   }
 
   // If validation passes, proceed with generation
