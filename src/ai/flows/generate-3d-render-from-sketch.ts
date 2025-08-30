@@ -38,9 +38,32 @@ const Generate3DRenderFromSketchOutputSchema = z.object({
 
 export type Generate3DRenderFromSketchOutput = z.infer<typeof Generate3DRenderFromSketchOutputSchema>;
 
+// New schema for validation
+const ValidationSchema = z.object({
+  isArchitecturalPlan: z.boolean().describe('Whether the uploaded image is an architectural plan or blueprint.'),
+  reasoning: z.string().describe('A brief explanation for the decision.'),
+});
+
 export async function generate3DRenderFromSketch(
   input: Generate3DRenderFromSketchInput
 ): Promise<Generate3DRenderFromSketchOutput> {
+  // First, validate the input image
+  const validationPrompt = ai.definePrompt({
+    name: 'validateSketchPrompt',
+    input: {schema: z.object({sketchDataUri: z.string()})},
+    output: {schema: ValidationSchema},
+    prompt: `You are an AI expert in architecture and building plans. Your task is to determine if the provided image is a valid architectural drawing, blueprint, or sketch. It should contain elements like walls, rooms, dimensions, or other standard architectural notations. A photo of a finished building is not a valid plan. A simple drawing of a house without any structural detail is also not a valid plan.
+
+    Analyze the following image: {{media url=sketchDataUri}}`,
+  });
+
+  const {output: validationResult} = await validationPrompt(input);
+
+  if (!validationResult?.isArchitecturalPlan) {
+    throw new Error(`The uploaded image is not a valid architectural plan. ${validationResult?.reasoning || ''}`);
+  }
+
+  // If validation passes, proceed with generation
   return generate3DRenderFromSketchFlow(input);
 }
 
@@ -51,16 +74,18 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     outputSchema: Generate3DRenderFromSketchOutputSchema,
   },
   async input => {
-    let promptText = `You are an AI that generates low-resolution 3D renders of architectural designs based on 2D sketches.
-    
-    Generate a low-resolution 3D render from the provided architectural sketch.`;
+    let promptText = `You are an AI that creates a detailed 3D isometric image from a 2D architectural blueprint drawing.
+
+    The user has provided an architectural plan. Your goal is to convert this 2D drawing into a 3D isometric render. The render must be a direct representation of the uploaded plan, maintaining the same layout, room sizes, and overall structure.
+
+    The final image should be a high-quality, detailed 3D isometric view of the building plan. Include 3D elements like beds, sofas, tables, and other furniture as appropriate for the rooms designated in the plan. Also, include details from the plan like room sizes and numbers where applicable.`;
 
     if (input.textPrompt) {
-      promptText += `\n\nRefine the 3D render based on the following text prompt: ${input.textPrompt}`;
+      promptText += `\n\nAdditionally, apply the following refinements based on the user's text prompt: "${input.textPrompt}"`;
     }
 
     if (input.moodBoardDataUris && input.moodBoardDataUris.length > 0) {
-      promptText += `\n\nIncorporate the style and aesthetics from the provided mood board images.`;
+      promptText += `\n\nUse the style, colors, and textures from the provided mood board images to influence the aesthetic of the final render.`;
     }
 
     const promptParts: any[] = [{text: promptText}, {media: {url: input.sketchDataUri}}];
