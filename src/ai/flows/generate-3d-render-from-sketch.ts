@@ -83,18 +83,23 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     }
 
     // Step 2: If validation passes, proceed with generation
-    let promptText = `You are an AI that creates a detailed 3D isometric image from a 2D architectural blueprint drawing.
+    let promptText = `You are an expert AI architectural visualizer. Your task is to convert a 2D architectural blueprint into a photorealistic 3D isometric render.
 
-    The user has provided an architectural plan. Your goal is to convert this 2D drawing into a 3D isometric render. The render must be a direct representation of the uploaded plan, maintaining the same layout, room sizes, and overall structure.
-
-    The final image should be a high-quality, detailed 3D isometric view of the building plan. Include 3D elements like beds, sofas, tables, and other furniture as appropriate for the rooms designated in the plan. Also, include details from the plan like room sizes and numbers where applicable.`;
+    **Instructions:**
+    1.  **Analyze the Blueprint:** Carefully analyze the provided 2D blueprint to understand the layout, room dimensions, wall placements, and any specified features.
+    2.  **Create a 3D Model:** Construct a detailed 3D model that is a direct and accurate representation of the 2D plan. Maintain the exact structure and proportions.
+    3.  **Apply Photorealistic Details:**
+        *   **Lighting:** Implement realistic lighting with soft shadows to create depth and dimension. Consider a natural light source, like sunlight coming through windows.
+        *   **Materials & Textures:** Apply high-quality materials. Use wood textures for floors, realistic paint or plaster for walls, and appropriate materials for furniture (e.g., fabric for sofas, metal for fixtures).
+        *   **Furniture & Decor:** Populate the rooms with appropriate, modern, and stylish 3D furniture (beds, sofas, tables, chairs) as indicated or implied by the room's function.
+    4.  **Final Render:** Produce a single, high-quality, full-color, isometric 3D image of the final building plan. The image should be clean, detailed, and visually stunning.`;
 
     if (input.textPrompt) {
-      promptText += `\n\nAdditionally, apply the following refinements based on the user's text prompt: "${input.textPrompt}"`;
+      promptText += `\n\n**User Refinements:** Additionally, apply the following specific refinements based on the user's text prompt: "${input.textPrompt}"`;
     }
 
     if (input.moodBoardDataUris && input.moodBoardDataUris.length > 0) {
-      promptText += `\n\nUse the style, colors, and textures from the provided mood board images to influence the aesthetic of the final render.`;
+      promptText += `\n\n**Style Guidance:** Use the style, color palette, materials, and overall aesthetic from the provided mood board images to heavily influence the final render's design.`;
     }
 
     const promptParts: any[] = [{text: promptText}, {media: {url: input.sketchDataUri}}];
