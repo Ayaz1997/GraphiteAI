@@ -1,6 +1,7 @@
+
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import {
   Card,
@@ -43,6 +44,16 @@ export function DashboardClient() {
   const [formState, formAction, isPending] = useActionState(generateRenderAction, initialState);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (formState.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Generation Failed',
+        description: formState.error,
+      });
+    }
+  }, [formState.error, toast]);
+
   const handleAngleGeneration = () => {
     if (!formState.renderDataUri) return;
 
@@ -62,15 +73,15 @@ export function DashboardClient() {
       setSelectedImage(formState.renderDataUri);
     }
   };
-  
+
   const handleHighQualityRender = () => {
     toast({
-        title: 'Premium Feature',
-        description: 'High-quality rendering requires credits. Please upgrade your account.',
-        variant: 'destructive'
+      title: 'Premium Feature',
+      description: 'High-quality rendering requires credits. Please upgrade your account.',
+      variant: 'destructive',
     });
-  }
-  
+  };
+
   React.useEffect(() => {
     if (formState.renderDataUri && !selectedImage) {
       setSelectedImage(formState.renderDataUri);
@@ -81,7 +92,6 @@ export function DashboardClient() {
   const mainRenderDisplay = selectedImage || 'https://picsum.photos/seed/graphite/1024/1024';
 
   const allRenders = hasGeneratedRender ? [formState.renderDataUri!, ...generatedAngles] : [];
-
 
   return (
     <div className="container mx-auto p-4 md:p-8">
@@ -107,11 +117,7 @@ export function DashboardClient() {
                     <Palette className="inline-block mr-2 h-4 w-4" />
                     Mood Board (Optional)
                   </Label>
-                  <MultipleFileUploader
-                    name="moodBoard"
-                    onFilesLoad={setMoodBoards}
-                    maxFiles={4}
-                  />
+                  <MultipleFileUploader name="moodBoard" onFilesLoad={setMoodBoards} maxFiles={4} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="text-prompt">Text Prompt (Optional)</Label>
@@ -126,12 +132,6 @@ export function DashboardClient() {
                   <Wand2 className="mr-2 h-4 w-4" />
                   {isPending ? 'Generating...' : 'Generate Render'}
                 </Button>
-                {formState?.error && (
-                    <div className="text-sm text-destructive flex items-center gap-2">
-                        <AlertCircle className="h-4 w-4" />
-                        <span>{formState.error}</span>
-                    </div>
-                )}
               </form>
             </CardContent>
           </Card>
@@ -139,55 +139,62 @@ export function DashboardClient() {
 
         {/* Main Content Column */}
         <div className="lg:col-span-8 xl:col-span-9 flex flex-col h-full">
-            <Card className="flex-1 flex flex-col overflow-hidden">
-                <CardHeader>
-                    <CardTitle>Generated Render</CardTitle>
-                    <CardDescription>The primary render and its variations will appear here.</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col gap-4 min-h-0 p-6 pt-0">
-                    <div className="relative bg-muted rounded-lg overflow-hidden flex-1">
-                        {isPending ? (
-                            <div className="flex items-center justify-center h-full">
-                                <Loader2 className="h-12 w-12 animate-spin text-primary"/>
-                            </div>
-                        ) : (
-                            <Image
-                                src={mainRenderDisplay}
-                                alt="Generated 3D Render"
-                                fill
-                                className="object-contain"
-                                data-ai-hint="architectural render"
-                            />
-                        )}
-                    </div>
-                    {allRenders.length > 0 && (
-                         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
-                            {allRenders.map((imgSrc, index) => (
-                                <button key={index} onClick={() => setSelectedImage(imgSrc)} className={cn("relative aspect-square rounded-md overflow-hidden ring-offset-background ring-offset-2 focus:outline-none focus:ring-2 focus:ring-ring", { 'ring-2 ring-primary': selectedImage === imgSrc })}>
-                                    <Image
-                                        src={imgSrc}
-                                        alt={`Render variation ${index + 1}`}
-                                        fill
-                                        className="object-cover"
-                                        data-ai-hint="architectural detail"
-                                    />
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                </CardContent>
-                <CardFooter className="flex-wrap gap-2 pt-4">
-                    <Button variant="outline" onClick={handleAngleGeneration} disabled={!hasGeneratedRender}>
-                        <Camera className="mr-2 h-4 w-4" /> Generate Angles
-                    </Button>
-                    <Button onClick={handleHighQualityRender} disabled={!hasGeneratedRender}>
-                        <Sparkles className="mr-2 h-4 w-4" /> High-Quality Render
-                    </Button>
-                    <Button variant="secondary" disabled={!hasGeneratedRender}>
-                        <Download className="mr-2 h-4 w-4" /> Export
-                    </Button>
-                </CardFooter>
-            </Card>
+          <Card className="flex-1 flex flex-col overflow-hidden">
+            <CardHeader>
+              <CardTitle>Generated Render</CardTitle>
+              <CardDescription>The primary render and its variations will appear here.</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-1 flex flex-col gap-4 min-h-0 p-6 pt-0">
+              <div className="relative bg-muted rounded-lg overflow-hidden flex-1">
+                {isPending ? (
+                  <div className="flex items-center justify-center h-full">
+                    <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                  </div>
+                ) : (
+                  <Image
+                    src={mainRenderDisplay}
+                    alt="Generated 3D Render"
+                    fill
+                    className="object-contain"
+                    data-ai-hint="architectural render"
+                  />
+                )}
+              </div>
+              {allRenders.length > 0 && (
+                <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+                  {allRenders.map((imgSrc, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImage(imgSrc)}
+                      className={cn(
+                        'relative aspect-square rounded-md overflow-hidden ring-offset-background ring-offset-2 focus:outline-none focus:ring-2 focus:ring-ring',
+                        { 'ring-2 ring-primary': selectedImage === imgSrc }
+                      )}
+                    >
+                      <Image
+                        src={imgSrc}
+                        alt={`Render variation ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        data-ai-hint="architectural detail"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+            <CardFooter className="flex-wrap gap-2 pt-4">
+              <Button variant="outline" onClick={handleAngleGeneration} disabled={!hasGeneratedRender}>
+                <Camera className="mr-2 h-4 w-4" /> Generate Angles
+              </Button>
+              <Button onClick={handleHighQualityRender} disabled={!hasGeneratedRender}>
+                <Sparkles className="mr-2 h-4 w-4" /> High-Quality Render
+              </Button>
+              <Button variant="secondary" disabled={!hasGeneratedRender}>
+                <Download className="mr-2 h-4 w-4" /> Export
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       </div>
     </div>
