@@ -139,8 +139,8 @@ export function DashboardClient() {
                     <CardTitle>Generated Render</CardTitle>
                     <CardDescription>The primary render and its variations will appear here.</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col gap-4">
-                    <div className="relative aspect-square flex-1">
+                <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
+                    <div className="relative aspect-square flex-1 min-h-0">
                         {formState.pending ? (
                             <div className="flex items-center justify-center h-full bg-muted rounded-lg">
                                 <Loader2 className="h-12 w-12 animate-spin text-primary"/>
