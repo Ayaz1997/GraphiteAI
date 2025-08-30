@@ -84,7 +84,7 @@ export function DashboardClient() {
 
   return (
     <div className="container mx-auto p-4 md:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-8rem)]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-8rem-2px)]">
         {/* Controls Column */}
         <div className="lg:col-span-4 xl:col-span-3">
           <Card className="sticky top-4">
@@ -133,14 +133,14 @@ export function DashboardClient() {
         </div>
 
         {/* Main Content Column */}
-        <div className="lg:col-span-8 xl:col-span-9">
-            <Card className="h-full flex flex-col">
+        <div className="lg:col-span-8 xl:col-span-9 flex flex-col">
+            <Card className="flex-1 flex flex-col">
                 <CardHeader>
                     <CardTitle>Generated Render</CardTitle>
                     <CardDescription>The primary render and its variations will appear here.</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
-                    <div className="relative aspect-square flex-1 min-h-0">
+                    <div className="relative aspect-square w-full h-full max-h-[calc(100%-64px)]">
                         {formState.pending ? (
                             <div className="flex items-center justify-center h-full bg-muted rounded-lg">
                                 <Loader2 className="h-12 w-12 animate-spin text-primary"/>
