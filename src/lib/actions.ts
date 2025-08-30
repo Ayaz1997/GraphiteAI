@@ -42,6 +42,13 @@ export async function generateRenderAction(
       textPrompt,
     });
 
+    if (result.error) {
+      return {
+        renderDataUri: null,
+        error: result.error,
+      };
+    }
+
     if (!result.renderDataUri) {
       return {
         renderDataUri: null,

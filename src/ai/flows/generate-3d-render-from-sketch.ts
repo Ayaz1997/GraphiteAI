@@ -31,9 +31,11 @@ export type Generate3DRenderFromSketchInput = z.infer<typeof Generate3DRenderFro
 const Generate3DRenderFromSketchOutputSchema = z.object({
   renderDataUri: z
     .string()
+    .optional()
     .describe(
       'The generated low-resolution 3D render, as a data URI that must include a MIME type and use Base64 encoding. Expected format: data:<mimetype>;base64,<encoded_data>.'
     ),
+  error: z.string().optional().describe('An error message if the generation failed.'),
 });
 
 export type Generate3DRenderFromSketchOutput = z.infer<typeof Generate3DRenderFromSketchOutputSchema>;
@@ -63,8 +65,8 @@ export async function generate3DRenderFromSketch(
 
   if (!validationResult?.isArchitecturalPlan) {
     const reasoning = validationResult?.reasoning || 'The AI could not determine why.';
-    // We throw an error here which will be caught by the action and displayed to the user.
-    throw new Error(`The uploaded image is not a valid architectural plan. ${reasoning}`);
+    // Return an error object instead of throwing
+    return {error: `The uploaded image is not a valid architectural plan. ${reasoning}`};
   }
 
   // If validation passes, proceed with generation
@@ -109,7 +111,7 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     });
 
     if (!media?.url) {
-      throw new Error('Image generation failed.');
+      return {error: 'Image generation failed.'};
     }
 
     return {renderDataUri: media.url};
