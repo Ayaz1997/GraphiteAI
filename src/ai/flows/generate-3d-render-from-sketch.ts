@@ -44,19 +44,20 @@ const ValidationSchema = z.object({
   reasoning: z.string().describe('A brief explanation for the decision.'),
 });
 
+// Define the validation prompt once, outside the function
+const validationPrompt = ai.definePrompt({
+  name: 'validateSketchPrompt',
+  input: {schema: z.object({sketchDataUri: z.string()})},
+  output: {schema: ValidationSchema},
+  prompt: `You are an AI expert in architecture and building plans. Your task is to determine if the provided image is a valid architectural drawing, blueprint, or sketch. It should contain elements like walls, rooms, dimensions, or other standard architectural notations. A photo of a finished building is not a valid plan. A simple drawing of a house without any structural detail is also not a valid plan.
+
+  Analyze the following image: {{media url=sketchDataUri}}`,
+});
+
 export async function generate3DRenderFromSketch(
   input: Generate3DRenderFromSketchInput
 ): Promise<Generate3DRenderFromSketchOutput> {
   // First, validate the input image
-  const validationPrompt = ai.definePrompt({
-    name: 'validateSketchPrompt',
-    input: {schema: z.object({sketchDataUri: z.string()})},
-    output: {schema: ValidationSchema},
-    prompt: `You are an AI expert in architecture and building plans. Your task is to determine if the provided image is a valid architectural drawing, blueprint, or sketch. It should contain elements like walls, rooms, dimensions, or other standard architectural notations. A photo of a finished building is not a valid plan. A simple drawing of a house without any structural detail is also not a valid plan.
-
-    Analyze the following image: {{media url=sketchDataUri}}`,
-  });
-
   const {output: validationResult} = await validationPrompt({sketchDataUri: input.sketchDataUri});
 
   if (!validationResult?.isArchitecturalPlan) {
