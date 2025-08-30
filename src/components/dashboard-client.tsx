@@ -26,7 +26,7 @@ import {
 import { FileUploader } from './file-uploader';
 import { useToast } from '@/hooks/use-toast';
 import { generateRenderAction } from '@/lib/actions';
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { cn } from '@/lib/utils';
 import { MultipleFileUploader } from './multiple-file-uploader';
 
@@ -40,7 +40,7 @@ export function DashboardClient() {
   const [sketch, setSketch] = useState<string | null>(null);
   const [moodBoards, setMoodBoards] = useState<(string | null)[]>([]);
   const [generatedAngles, setGeneratedAngles] = useState<string[]>([]);
-  const [formState, formAction] = useFormState(generateRenderAction, initialState);
+  const [formState, formAction, isPending] = useActionState(generateRenderAction, initialState);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleAngleGeneration = () => {
@@ -87,13 +87,13 @@ export function DashboardClient() {
     <div className="container mx-auto p-4 md:p-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-8rem)]">
         {/* Controls Column */}
-        <div className="lg:col-span-4 xl:col-span-3">
-          <Card className="sticky top-4 h-full">
+        <div className="lg:col-span-4 xl:col-span-3 h-full">
+          <Card className="h-full flex flex-col">
             <CardHeader>
               <CardTitle className="font-headline text-2xl">Create Render</CardTitle>
               <CardDescription>Upload files and provide a prompt to generate a 3D model.</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-1 overflow-y-auto">
               <form action={formAction} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="sketch-upload">
@@ -122,9 +122,9 @@ export function DashboardClient() {
                     rows={4}
                   />
                 </div>
-                <Button type="submit" className="w-full font-semibold" disabled={!sketch}>
+                <Button type="submit" className="w-full font-semibold" disabled={!sketch || isPending}>
                   <Wand2 className="mr-2 h-4 w-4" />
-                  Generate Render
+                  {isPending ? 'Generating...' : 'Generate Render'}
                 </Button>
                 {formState?.error && (
                     <div className="text-sm text-destructive flex items-center gap-2">
@@ -138,7 +138,7 @@ export function DashboardClient() {
         </div>
 
         {/* Main Content Column */}
-        <div className="lg:col-span-8 xl:col-span-9 flex flex-col">
+        <div className="lg:col-span-8 xl:col-span-9 flex flex-col h-full">
             <Card className="flex-1 flex flex-col overflow-hidden">
                 <CardHeader>
                     <CardTitle>Generated Render</CardTitle>
@@ -146,7 +146,7 @@ export function DashboardClient() {
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col gap-4 min-h-0 p-6 pt-0">
                     <div className="relative bg-muted rounded-lg overflow-hidden flex-1">
-                        {formState.pending ? (
+                        {isPending ? (
                             <div className="flex items-center justify-center h-full">
                                 <Loader2 className="h-12 w-12 animate-spin text-primary"/>
                             </div>
@@ -160,7 +160,7 @@ export function DashboardClient() {
                             />
                         )}
                     </div>
-                    {allRenders.length > 0 ? (
+                    {allRenders.length > 0 && (
                          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
                             {allRenders.map((imgSrc, index) => (
                                 <button key={index} onClick={() => setSelectedImage(imgSrc)} className={cn("relative aspect-square rounded-md overflow-hidden ring-offset-background ring-offset-2 focus:outline-none focus:ring-2 focus:ring-ring", { 'ring-2 ring-primary': selectedImage === imgSrc })}>
@@ -174,11 +174,9 @@ export function DashboardClient() {
                                 </button>
                             ))}
                         </div>
-                    ) : (
-                        <div className="h-20" /> 
                     )}
                 </CardContent>
-                <CardFooter className="flex-wrap gap-2 pt-6">
+                <CardFooter className="flex-wrap gap-2 pt-4">
                     <Button variant="outline" onClick={handleAngleGeneration} disabled={!hasGeneratedRender}>
                         <Camera className="mr-2 h-4 w-4" /> Generate Angles
                     </Button>
