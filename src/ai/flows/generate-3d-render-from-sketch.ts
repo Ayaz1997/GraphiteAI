@@ -99,7 +99,7 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     }
 
     const {media} = await ai.generate({
-      model: 'googleai/gemini-2.0-flash-preview-image-generation',
+      model: 'googleai/gemini-2.5-flash-image-preview',
       prompt: promptParts,
       config: {
         responseModalities: ['IMAGE'],
