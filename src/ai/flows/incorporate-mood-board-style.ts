@@ -39,26 +39,6 @@ export async function incorporateMoodBoardStyle(
   return incorporateMoodBoardStyleFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'incorporateMoodBoardStylePrompt',
-  input: {schema: IncorporateMoodBoardStyleInputSchema},
-  output: {schema: IncorporateMoodBoardStyleOutputSchema},
-  prompt: `You are an AI that generates low-resolution 3D renders of architectural designs based on a 2D sketch and a mood board of images.
-
-  The user will provide a sketch of the architecture and a mood board of images to guide the rendering style. Use the mood board images to inform the colors, textures, and overall aesthetic of the 3D render.
-
-  {{#if textPrompt}}
-  Additionally, a user has provided the following text prompt to further refine the rendering style: {{{textPrompt}}}
-  {{/if}}
-
-  Sketch: {{media url=sketchDataUri}}
-  Mood Board:
-  {{#each moodBoardDataUris}}
-  {{media url=this}}
-  {{/each}}
-  `,
-});
-
 const incorporateMoodBoardStyleFlow = ai.defineFlow(
   {
     name: 'incorporateMoodBoardStyleFlow',
@@ -66,23 +46,32 @@ const incorporateMoodBoardStyleFlow = ai.defineFlow(
     outputSchema: IncorporateMoodBoardStyleOutputSchema,
   },
   async input => {
+    let promptText = `You are an AI that generates 3D renders of architectural designs based on a 2D sketch and a mood board. Use the mood board images to inform the colors, textures, and overall aesthetic.`;
+
+    if (input.textPrompt) {
+      promptText += `\n\nAdditionally, apply the following refinements: "${input.textPrompt}"`;
+    }
+
+    const promptParts: any[] = [
+      {text: promptText},
+      {media: {url: input.sketchDataUri}},
+      ...input.moodBoardDataUris.map(uri => ({
+        media: {url: uri},
+      })),
+    ];
+
     const {media} = await ai.generate({
-      prompt: prompt,
-      model: 'googleai/imagen-4.0-fast-generate-001',
-      messages: [
-        {
-          role: 'user',
-          content: [
-            {text: prompt.prompt},
-            {media: {url: input.sketchDataUri}},
-            ...input.moodBoardDataUris.map(uri => ({
-              media: {url: uri},
-            })),
-          ],
-        },
-      ],
+      model: 'googleai/gemini-2.0-flash-preview-image-generation',
+      prompt: promptParts,
+      config: {
+        responseModalities: ['IMAGE'],
+      },
     });
 
-    return {render3DDataUri: media.url!};
+    if (!media?.url) {
+      throw new Error('Image generation failed to produce a result.');
+    }
+
+    return {render3DDataUri: media.url};
   }
 );
