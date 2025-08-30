@@ -25,10 +25,6 @@ export default function RootLayout({
         />
         <link rel="icon" href="/icon.svg" sizes="any" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon.svg" />
-        <Script
-          src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
-          type="module"
-        />
       </head>
       <body className={cn('font-body antialiased min-h-screen bg-background')} suppressHydrationWarning>
         {children}

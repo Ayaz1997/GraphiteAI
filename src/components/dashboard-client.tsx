@@ -30,20 +30,7 @@ import { generateRenderAction } from '@/lib/actions';
 import { useActionState } from 'react';
 import { cn } from '@/lib/utils';
 import { MultipleFileUploader } from './multiple-file-uploader';
-
-// Define the type for the custom element
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'dotlottie-player': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
-        src: string;
-        autoplay: string;
-        loop: string;
-        style?: React.CSSProperties;
-      }, HTMLElement>;
-    }
-  }
-}
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const initialState = {
   renderDataUri: null,
@@ -162,10 +149,10 @@ export function DashboardClient() {
               <div className="relative bg-muted rounded-lg overflow-hidden flex-1">
                 {isPending ? (
                   <div className="flex items-center justify-center h-full">
-                     <dotlottie-player
+                     <DotLottieReact
                         src="https://lottie.host/59b29fe7-a1fa-4e20-aa92-160e5d2dcc70/0RzXncpPt2.lottie"
-                        autoplay="true"
-                        loop="true"
+                        loop
+                        autoplay
                         style={{ width: '300px', height: '300px' }}
                       />
                   </div>
