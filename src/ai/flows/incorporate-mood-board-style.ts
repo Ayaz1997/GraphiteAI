@@ -48,7 +48,7 @@ const prompt = ai.definePrompt({
   The user will provide a sketch of the architecture and a mood board of images to guide the rendering style. Use the mood board images to inform the colors, textures, and overall aesthetic of the 3D render.
 
   {{#if textPrompt}}
-  Additionally, the user has provided the following text prompt to further refine the rendering style: {{{textPrompt}}}
+  Additionally, a user has provided the following text prompt to further refine the rendering style: {{{textPrompt}}}
   {{/if}}
 
   Sketch: {{media url=sketchDataUri}}
@@ -68,7 +68,7 @@ const incorporateMoodBoardStyleFlow = ai.defineFlow(
   async input => {
     const {media} = await ai.generate({
       prompt: prompt,
-      model: 'googleai/gemini-2.0-flash-preview-image-generation',
+      model: 'googleai/imagen-4.0-fast-generate-001',
       messages: [
         {
           role: 'user',
@@ -81,9 +81,6 @@ const incorporateMoodBoardStyleFlow = ai.defineFlow(
           ],
         },
       ],
-      config: {
-        responseModalities: ['TEXT', 'IMAGE'],
-      },
     });
 
     return {render3DDataUri: media.url!};
