@@ -57,7 +57,7 @@ export async function generate3DRenderFromSketch(
     Analyze the following image: {{media url=sketchDataUri}}`,
   });
 
-  const {output: validationResult} = await validationPrompt(input);
+  const {output: validationResult} = await validationPrompt({sketchDataUri: input.sketchDataUri});
 
   if (!validationResult?.isArchitecturalPlan) {
     throw new Error(`The uploaded image is not a valid architectural plan. ${validationResult?.reasoning || ''}`);
