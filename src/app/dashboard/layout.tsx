@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarMenuBadge,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { CreditCard, Home, Settings, SquarePen, Star, History } from "lucide-react";
 import Link from "next/link";
@@ -39,7 +40,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider defaultOpen={false}>
       <div className="flex min-h-screen">
-        <Sidebar>
+        <Sidebar collapsible="icon">
           <SidebarHeader>
             <Link href="/" className="flex items-center gap-2">
               <GraphiteIcon className="w-6 h-6 text-primary" />
@@ -103,6 +104,17 @@ export default function DashboardLayout({
           </SidebarFooter>
         </Sidebar>
         <main className="flex-1">
+            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div className="container flex h-14 items-center">
+                    <SidebarTrigger />
+                    <div className="flex flex-1 items-center justify-end">
+                        <Avatar className="h-8 w-8">
+                            <AvatarImage src="https://picsum.photos/100" alt="User avatar" data-ai-hint="person face" />
+                            <AvatarFallback>U</AvatarFallback>
+                        </Avatar>
+                    </div>
+                </div>
+            </header>
           {children}
         </main>
       </div>
