@@ -44,28 +44,6 @@ export async function generate3DRenderFromSketch(
   return generate3DRenderFromSketchFlow(input);
 }
 
-const generate3DRenderFromSketchPrompt = ai.definePrompt({
-  name: 'generate3DRenderFromSketchPrompt',
-  input: {schema: Generate3DRenderFromSketchInputSchema},
-  output: {schema: Generate3DRenderFromSketchOutputSchema},
-  prompt: `You are an AI that generates low-resolution 3D renders of architectural designs based on 2D sketches.
-
-  {{#if moodBoardDataUris}}
-  Incorporate the style and aesthetics from the following mood board images:
-  {{#each moodBoardDataUris}}
-  {{media url=this}}
-  {{/each}}
-  {{/if}}
-
-  {{#if textPrompt}}
-  Refine the 3D render based on the following text prompt: {{{textPrompt}}}
-  {{/if}}
-
-  Generate a low-resolution 3D render from the following architectural sketch:
-  {{media url=sketchDataUri}}
-  `,
-});
-
 const generate3DRenderFromSketchFlow = ai.defineFlow(
   {
     name: 'generate3DRenderFromSketchFlow',
@@ -74,13 +52,23 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
   },
   async input => {
     
-    const promptParts: any[] = [{media: {url: input.sketchDataUri}}];
+    let promptText = `You are an AI that generates low-resolution 3D renders of architectural designs based on 2D sketches.
+    
+    Generate a low-resolution 3D render from the provided architectural sketch.`;
+
     if (input.textPrompt) {
-        promptParts.push({text: input.textPrompt});
+        promptText += `\n\nRefine the 3D render based on the following text prompt: ${input.textPrompt}`;
     }
+
+    if (input.moodBoardDataUris && input.moodBoardDataUris.length > 0) {
+        promptText += `\n\nIncorporate the style and aesthetics from the provided mood board images.`;
+    }
+
+    const promptParts: any[] = [{ text: promptText }, { media: { url: input.sketchDataUri } }];
+    
     if (input.moodBoardDataUris) {
         input.moodBoardDataUris.forEach(uri => {
-            promptParts.push({media: {url: uri}});
+            promptParts.push({ media: { url: uri } });
         });
     }
 
@@ -92,6 +80,10 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
       },
     });
 
-    return {renderDataUri: media!.url!};
+    if (!media?.url) {
+      throw new Error('Image generation failed.');
+    }
+
+    return {renderDataUri: media.url};
   }
 );
