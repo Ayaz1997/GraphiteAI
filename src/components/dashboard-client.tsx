@@ -87,7 +87,7 @@ export function DashboardClient() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-8rem)]">
         {/* Controls Column */}
         <div className="lg:col-span-4 xl:col-span-3">
-          <Card className="sticky top-4">
+          <Card className="sticky top-4 h-full">
             <CardHeader>
               <CardTitle className="font-headline text-2xl">Create Render</CardTitle>
               <CardDescription>Upload files and provide a prompt to generate a 3D model.</CardDescription>
@@ -139,7 +139,7 @@ export function DashboardClient() {
                     <CardTitle>Generated Render</CardTitle>
                     <CardDescription>The primary render and its variations will appear here.</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-1 flex flex-col gap-4 min-h-0">
+                <CardContent className="flex-1 flex flex-col gap-4 min-h-0 p-6 pt-0">
                     <div className="relative bg-muted rounded-lg overflow-hidden flex-1">
                         {formState.pending ? (
                             <div className="flex items-center justify-center h-full">
@@ -155,7 +155,7 @@ export function DashboardClient() {
                             />
                         )}
                     </div>
-                    {allRenders.length > 0 && (
+                    {allRenders.length > 0 ? (
                          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
                             {allRenders.map((imgSrc, index) => (
                                 <button key={index} onClick={() => setSelectedImage(imgSrc)} className={cn("relative aspect-square rounded-md overflow-hidden ring-offset-background ring-offset-2 focus:outline-none focus:ring-2 focus:ring-ring", { 'ring-2 ring-primary': selectedImage === imgSrc })}>
@@ -169,6 +169,8 @@ export function DashboardClient() {
                                 </button>
                             ))}
                         </div>
+                    ) : (
+                        <div className="h-20" /> 
                     )}
                 </CardContent>
                 <CardFooter className="flex-wrap gap-2 pt-6">
