@@ -1,3 +1,4 @@
+
 'use server';
 
 import { generate3DRenderFromSketch } from '@/ai/flows/generate-3d-render-from-sketch';
@@ -24,7 +25,7 @@ export async function generateRenderAction(
     const validatedFields = GenerateRenderSchema.safeParse({
       sketchDataUri: formData.get('sketchDataUri'),
       moodBoardDataUris: moodBoards.length > 0 ? moodBoards : undefined,
-      textPrompt: formData.get('textPrompt'),
+      textPrompt: formData.get('textPrompt') || undefined,
     });
 
     if (!validatedFields.success) {
