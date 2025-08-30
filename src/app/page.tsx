@@ -65,11 +65,11 @@ export default function LandingPage() {
                 </div>
               </div>
               <Image
-                src="https://picsum.photos/1200/800"
+                src="https://picsum.photos/seed/arch/1200/800"
                 width={1200}
                 height={800}
                 alt="Hero"
-                data-ai-hint="modern architecture"
+                data-ai-hint="architecture building"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
               />
             </div>
