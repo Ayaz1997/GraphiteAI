@@ -55,10 +55,11 @@ export async function generateRenderAction(
       error: null,
     };
   } catch (error) {
-    console.error('Error generating render:', error);
+    console.error('Error in generateRenderAction:', error);
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred. Please try again later.';
     return {
       renderDataUri: null,
-      error: 'An unexpected error occurred. Please try again later.',
+      error: errorMessage,
     };
   }
 }
