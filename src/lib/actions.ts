@@ -33,7 +33,7 @@ export async function generateRenderAction(
         error: validatedFields.error.flatten().fieldErrors.sketchDataUri?.[0] || 'Invalid input.',
       };
     }
-
+    
     const { sketchDataUri, moodBoardDataUris, textPrompt } = validatedFields.data;
 
     const result = await generate3DRenderFromSketch({

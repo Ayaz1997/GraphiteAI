@@ -40,6 +40,13 @@ const Generate3DRenderFromSketchOutputSchema = z.object({
 
 export type Generate3DRenderFromSketchOutput = z.infer<typeof Generate3DRenderFromSketchOutputSchema>;
 
+// Export the wrapper function that calls the flow
+export async function generate3DRenderFromSketch(
+  input: Generate3DRenderFromSketchInput
+): Promise<Generate3DRenderFromSketchOutput> {
+  return await generate3DRenderFromSketchFlow(input);
+}
+
 // New schema for validation
 const ValidationSchema = z.object({
   isArchitecturalPlan: z.boolean().describe('Whether the uploaded image is an architectural plan or blueprint.'),
@@ -57,25 +64,6 @@ const validationPrompt = ai.definePrompt({
   Analyze the following image: {{media url=sketchDataUri}}`,
 });
 
-export async function generate3DRenderFromSketch(
-  input: Generate3DRenderFromSketchInput
-): Promise<Generate3DRenderFromSketchOutput> {
-  // First, validate the input image
-  const {output: validationResult} = await validationPrompt({sketchDataUri: input.sketchDataUri});
-
-  if (!validationResult?.isArchitecturalPlan) {
-    const reasoning = validationResult?.reasoning || 'The AI could not determine why.';
-    // Return a valid Output object with an error message.
-    return {
-      renderDataUri: undefined,
-      error: `The uploaded image is not a valid architectural plan. ${reasoning}`,
-    };
-  }
-
-  // If validation passes, proceed with generation
-  return await generate3DRenderFromSketchFlow(input);
-}
-
 const generate3DRenderFromSketchFlow = ai.defineFlow(
   {
     name: 'generate3DRenderFromSketchFlow',
@@ -83,6 +71,18 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     outputSchema: Generate3DRenderFromSketchOutputSchema,
   },
   async input => {
+    // Step 1: Validate the input image
+    const {output: validationResult} = await validationPrompt({sketchDataUri: input.sketchDataUri});
+
+    if (!validationResult?.isArchitecturalPlan) {
+      const reasoning = validationResult?.reasoning || 'The AI could not determine why.';
+      return {
+        renderDataUri: undefined,
+        error: `The uploaded image is not a valid architectural plan. ${reasoning}`,
+      };
+    }
+
+    // Step 2: If validation passes, proceed with generation
     let promptText = `You are an AI that creates a detailed 3D isometric image from a 2D architectural blueprint drawing.
 
     The user has provided an architectural plan. Your goal is to convert this 2D drawing into a 3D isometric render. The render must be a direct representation of the uploaded plan, maintaining the same layout, room sizes, and overall structure.
