@@ -30,6 +30,7 @@ import { generateRenderAction } from '@/lib/actions';
 import { useActionState } from 'react';
 import { cn } from '@/lib/utils';
 import { MultipleFileUploader } from './multiple-file-uploader';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 const initialState = {
   renderDataUri: null,
@@ -148,7 +149,12 @@ export function DashboardClient() {
               <div className="relative bg-muted rounded-lg overflow-hidden flex-1">
                 {isPending ? (
                   <div className="flex items-center justify-center h-full">
-                    <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                    <Player
+                      autoplay
+                      loop
+                      src="https://assets-v2.lottiefiles.com/a/59b2427a-1150-4838-b174-8c4d2719c629/Q6Y69tkOXT.lottie"
+                      style={{ height: '300px', width: '300px' }}
+                    />
                   </div>
                 ) : (
                   <Image
