@@ -57,7 +57,7 @@ const refineRenderWithTextPromptFlow = ai.defineFlow(
         {media: {url: input.renderDataUri}},
       ],
       config: {
-        responseModalities: ['IMAGE'],
+        responseModalities: ['IMAGE', 'TEXT'],
       },
     });
 
