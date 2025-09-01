@@ -83,16 +83,7 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     }
 
     // Step 2: If validation passes, proceed with generation
-    let promptText = `You are an expert AI architectural visualizer. Your task is to convert a 2D architectural blueprint into a photorealistic 3D isometric render.
-
-    **Instructions:**
-    1.  **Analyze the Blueprint:** Carefully analyze the provided 2D blueprint to understand the layout, room dimensions, wall placements, and any specified features.
-    2.  **Create a 3D Model:** Construct a detailed 3D model that is a direct and accurate representation of the 2D plan. Maintain the exact structure and proportions.
-    3.  **Apply Photorealistic Details:**
-        *   **Lighting:** Implement realistic lighting with soft shadows to create depth and dimension. Consider a natural light source, like sunlight coming through windows.
-        *   **Materials & Textures:** Apply high-quality materials. Use wood textures for floors, realistic paint or plaster for walls, and appropriate materials for furniture (e.g., fabric for sofas, metal for fixtures).
-        *   **Furniture & Decor:** Populate the rooms with appropriate, modern, and stylish 3D furniture (beds, sofas, tables, chairs) as indicated or implied by the room's function.
-    4.  **Final Render:** Produce a single, high-quality, full-color, isometric 3D image of the final building plan. The image should be clean, detailed, and visually stunning.`;
+    let promptText = `Given a 2D floor plan diagram or sketch, generate a 3D top-down architectural model. The output should maintain the exact layout and spatial relationships of rooms, walls, doors, and windows as depicted in the input. Ensure that furniture and fixtures (e.g., beds, sofas, tables, kitchen appliances, bathroom fixtures) are accurately represented in their respective locations and orientations, mimicking the style and level of detail shown in the provided examples. The rendering style should be consistent with the clean, modern, and well-lit aesthetic of the example images, featuring appropriate textures for flooring (hardwood, carpet, tile), walls, and furniture. The perspective should be a clear, overhead, slightly angled view, similar to an axonometric projection, allowing for a comprehensive understanding of the entire floor plan. All elements should be proportionally scaled and realistically rendered to create a professional and appealing visualization of the architectural space.`;
 
     if (input.textPrompt) {
       promptText += `\n\n**User Refinements:** Additionally, apply the following specific refinements based on the user's text prompt: "${input.textPrompt}"`;
