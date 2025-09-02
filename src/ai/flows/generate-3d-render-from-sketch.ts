@@ -101,18 +101,33 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
       });
     }
 
-    const {media} = await ai.generate({
-      model: 'googleai/gemini-2.0-flash-preview-image-generation',
-      prompt: promptParts,
-      config: {
-        responseModalities: ['IMAGE', 'TEXT'],
-      },
-    });
+    try {
+      const {media} = await ai.generate({
+        model: 'googleai/gemini-2.5-flash-image-preview',
+        prompt: promptParts,
+        config: {
+          responseModalities: ['IMAGE', 'TEXT'],
+        },
+      });
 
-    if (!media?.url) {
-      return {error: 'Image generation failed.'};
+      if (!media?.url) {
+        return {error: 'Image generation failed. The AI did not return an image.'};
+      }
+
+      return {renderDataUri: media.url};
+    } catch (e: any) {
+      console.error('An error occurred during image generation:', e);
+      let errorMessage = 'An unexpected error occurred during image generation. Please check the server logs.';
+      if (e.message) {
+        if (e.message.includes('SAFETY')) {
+          errorMessage = 'The generation was blocked due to safety settings. Please modify your prompt or image.';
+        } else if (e.message.includes('DEADLINE_EXCEEDED')) {
+          errorMessage = 'The request timed out. Please try again.';
+        } else {
+          errorMessage = `Generation failed: ${e.message}`;
+        }
+      }
+      return {error: errorMessage};
     }
-
-    return {renderDataUri: media.url};
   }
 );
