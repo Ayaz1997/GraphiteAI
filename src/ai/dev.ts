@@ -1,6 +1,17 @@
-import { config } from 'dotenv';
-config();
+import {genkit} from 'genkit';
+import {googleAI} from '@genkit-ai/googleai';
+import {start} from 'genkit/dev';
 
 import '@/ai/flows/generate-3d-render-from-sketch.ts';
-import '@/ai/flows/refine-render-with-text-prompt.ts';
-import '@/ai/flows/incorporate-mood-board-style.ts';
+
+const ai = genkit({
+  plugins: [
+    googleAI({
+      apiVersion: 'v1beta',
+    }),
+  ],
+});
+
+start(ai, {
+  port: 4001,
+});
