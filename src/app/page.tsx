@@ -1,123 +1,138 @@
-import { Header } from '@/components/header';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Code, Layers, Mountain, Palette, Pilcrow, Download } from 'lucide-react';
+import { Box, Bot, ScanSearch, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const features = [
   {
-    icon: <Layers className="h-8 w-8 text-accent" />,
-    title: 'Sketch to 3D Render',
-    description: 'Instantly convert your 2D architectural sketches into detailed, low-resolution 3D models with our advanced AI.',
+    icon: <ScanSearch className="h-5 w-5 text-gray-500" />,
+    label: 'Recognition',
   },
   {
-    icon: <Palette className="h-8 w-8 text-accent" />,
-    title: 'Mood Board Integration',
-    description: 'Guide the AI\'s aesthetic by uploading mood boards. Infuse your renders with specific styles, colors, and textures.',
+    icon: <Bot className="h-5 w-5 text-gray-500" />,
+    label: 'AI Processing',
   },
   {
-    icon: <Pilcrow className="h-8 w-8 text-accent" />,
-    title: 'Text Prompt Refinement',
-    description: 'Fine-tune every detail of your model. Our AI intelligently incorporates your text-based feedback for precise adjustments.',
-  },
-  {
-    icon: <Code className="h-8 w-8 text-accent" />,
-    title: 'Multiple Angle Generation',
-    description: 'Explore your design from every perspective. Generate various camera angles of your 3D model from a single sketch.',
-  },
-  {
-    icon: <Mountain className="h-8 w-8 text-accent" />,
-    title: 'High-Quality Rendering',
-    description: 'Take your preferred model to the next level. Generate a high-resolution, photorealistic final render for presentations.',
-  },
-  {
-    icon: <Download className="h-8 w-8 text-accent" />,
-    title: 'Flexible Export Options',
-    description: 'Export your final renders in standard formats like JPEG and PNG, ready for your portfolio or client presentations.',
+    icon: <Box className="h-5 w-5 text-gray-500" />,
+    label: '3D Rendering',
   },
 ];
 
+const BackgroundGrid = () => (
+    <div className="absolute inset-0 -z-10 h-full w-full bg-gray-50">
+      <svg
+        className="h-full w-full"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        style={{
+            stroke: '#EAECF0',
+            strokeWidth: '1',
+            fill: 'none',
+          }}
+      >
+        <defs>
+          <pattern
+            id="grid"
+            width="80"
+            height="80"
+            patternUnits="userSpaceOnUse"
+          >
+            <path d="M 80 0 L 0 0 0 80" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+    </div>
+  );
+  
+
 export default function LandingPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-1">
-        <section className="w-full py-20 md:py-32 lg:py-40 xl:py-48">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Graphite AI: From Sketch to Reality
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    The ultimate AI toolkit for architects and designers. Transform your creative vision into stunning 3D renders with unparalleled speed and control.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button asChild size="lg" className="font-semibold">
-                    <Link href="/dashboard">Get Started</Link>
-                  </Button>
-                  <Button asChild variant="outline" size="lg" className="font-semibold">
-                    <Link href="#features">Learn More</Link>
-                  </Button>
-                </div>
-              </div>
-              <Image
-                src="/images/geometry.png"
-                width={1200}
-                height={800}
-                alt="Hero"
-                data-ai-hint="isometric building"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-contain sm:w-full lg:order-last lg:aspect-square"
-              />
-            </div>
+    <div className="flex min-h-screen flex-col bg-gray-50 text-gray-900 font-body">
+      <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+          <Link href="/" className="flex items-center gap-2">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-6 w-6 text-gray-900"
+            >
+                <path d="M12,2 L2,7 L12,12 L22,7 L12,2 Z" />
+                <polyline points="2,17 12,22 22,17" />
+                <polyline points="2,12 12,17 22,12" />
+            </svg>
+            <span className="text-lg font-semibold text-gray-900">Graphite3D</span>
+          </Link>
+          <nav className="hidden items-center gap-6 md:flex">
+            <Link href="#" className="text-sm font-medium text-gray-600 hover:text-gray-900">Home</Link>
+            <Link href="#features" className="text-sm font-medium text-gray-600 hover:text-gray-900">Features</Link>
+            <Link href="#" className="text-sm font-medium text-gray-600 hover:text-gray-900">How it works</Link>
+            <Link href="#" className="text-sm font-medium text-gray-600 hover:text-gray-900">Pricing</Link>
+          </nav>
+          <div className="flex items-center gap-4">
+            <Button variant="outline" size="sm" asChild>
+                <Link href="/dashboard">
+                    Sign in
+                </Link>
+            </Button>
           </div>
-        </section>
+        </div>
+      </header>
 
-        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-secondary">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-                  Key Features
-                </div>
-                <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Build at the Speed of Thought
-                </h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our comprehensive suite of AI-powered tools is designed to seamlessly integrate into your creative workflow, accelerating your design process from concept to completion.
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:max-w-none lg:grid-cols-3 pt-12">
-              {features.map((feature) => (
-                <Card key={feature.title} className="shadow-md hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader className="flex flex-row items-center gap-4">
+      <main className="flex-1 relative">
+        <BackgroundGrid />
+        <section className="w-full py-20 md:py-32 lg:py-40">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center text-center space-y-6">
+              <h1 className="font-headline text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-gray-900">
+                Transform Your Sketches <br /> Into Stunning 3D Models
+              </h1>
+              <p className="max-w-2xl text-lg text-gray-600">
+                Graphite3D converts 2D architectural drawings and hand sketches into professional isometric 3D visualizations using advanced AI.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                {features.map((feature) => (
+                  <div key={feature.label} className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm">
                     {feature.icon}
-                    <CardTitle className="font-headline text-xl">{feature.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+                    <span className="text-sm font-medium text-gray-700">{feature.label}</span>
+                  </div>
+                ))}
+              </div>
+              <Button size="lg" asChild className="bg-gray-900 text-white hover:bg-gray-800">
+                <Link href="/dashboard">
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  Get Started for Free
+                </Link>
+              </Button>
+              <div className="w-full max-w-4xl pt-12">
+                <Image
+                  src="https://picsum.photos/1200/800"
+                  width={1200}
+                  height={800}
+                  alt="Architectural sketch to 3D model conversion"
+                  data-ai-hint="isometric building"
+                  className="mx-auto rounded-lg"
+                />
+              </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">&copy; 2024 Graphite AI. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
-            Terms of Service
-          </Link>
-          <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
-            Privacy
-          </Link>
-        </nav>
+      <footer className="w-full border-t border-gray-200 bg-white">
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-6 px-4 md:px-6">
+          <p className="text-sm text-gray-600">
+            Powered by Google NanoBanana 🍌
+          </p>
+          <p className="text-sm text-gray-600">
+            Created by Ayaz (hey@ayaz.me)
+          </p>
+        </div>
       </footer>
     </div>
   );
