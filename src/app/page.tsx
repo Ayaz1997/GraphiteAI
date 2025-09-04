@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { Box, Bot, ScanSearch, Sparkles } from 'lucide-react';
+import { Box, Bot, ScanSearch, Sparkles, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ImageComparison } from '@/components/image-comparison';
@@ -79,6 +79,48 @@ const howItWorksSteps = [
       number: "3",
       title: "Professional Output",
       description: "Export high-resolution images perfect for client presentations",
+    },
+  ];
+
+  const pricingPlans = [
+    {
+      name: "Free",
+      price: null,
+      credits: "5 credits",
+      features: [
+        "5 conversions",
+        "No credit card required",
+        "Basic support",
+        "Standard quality exports",
+      ],
+      buttonText: "Start Free Trial",
+      highlighted: false,
+    },
+    {
+      name: "$19",
+      price: 19,
+      credits: "30 Credits",
+      features: [
+        "30 conversions",
+        "Fast processing",
+        "High-res exports",
+        "Email support",
+      ],
+      buttonText: "Get Started",
+      highlighted: true,
+    },
+    {
+      name: "$99",
+      price: 99,
+      credits: "200 Credits",
+      features: [
+        "200 conversions",
+        "Fast processing",
+        "High-res exports",
+        "Email support",
+      ],
+      buttonText: "Get Started",
+      highlighted: false,
     },
   ];
 
@@ -306,6 +348,59 @@ export default function LandingPage() {
                         <p className="text-secondary-foreground text-base">{pro.description}</p>
                     </div>
                 ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" className="w-full py-20 md:py-32 lg:py-40">
+          <div className="container mx-auto px-40">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
+                Plans That Fit Your Scale
+              </h2>
+              <p className="max-w-2xl text-lg text-gray-500">
+                Try converting with Free credits or choose the one that suits your needs.
+              </p>
+            </div>
+            <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+              {pricingPlans.map((plan) => (
+                <div
+                  key={plan.name}
+                  className={`p-8 flex flex-col h-full ${
+                    plan.highlighted
+                      ? 'bg-[#161B26] text-white'
+                      : 'bg-white text-gray-900 border border-gray-200'
+                  }`}
+                  style={{ borderRadius: '40px' }}
+                >
+                  <div className="flex-grow">
+                    <h3 className="font-headline text-4xl mb-2">{plan.name}</h3>
+                    <p className={`mb-6 ${plan.highlighted ? 'text-gray-400' : 'text-gray-600'}`}>
+                      {plan.credits}
+                    </p>
+                    <ul className="space-y-4">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className={`mr-4 mt-1 ${plan.highlighted ? 'text-white' : 'text-gray-900'}`}>•</span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-8">
+                    <Button
+                      size="lg"
+                      className={`w-full rounded-full ${
+                        plan.highlighted
+                          ? 'bg-white text-gray-900 hover:bg-gray-200'
+                          : 'bg-gray-900 text-white hover:bg-gray-800'
+                      }`}
+                    >
+                      {plan.buttonText}
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
