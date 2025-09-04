@@ -28,12 +28,27 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    // This is to allow the Next.js dev server to accept requests from the
-    // Firebase Studio development environment.
-    allowedDevOrigins: [
-      'https://*.cluster-ulqnojp5endvgve6krhe7klaws.cloudworkstations.dev',
-    ],
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value:
+              'https://*.cluster-ulqnojp5endvgve6krhe7klaws.cloudworkstations.dev',
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization',
+          },
+        ],
+      },
+    ];
   },
 };
 
