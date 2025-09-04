@@ -86,7 +86,7 @@ export default function LandingPage() {
             <Link href="#" className="text-sm font-medium text-gray-600 hover:text-gray-900">Pricing</Link>
           </nav>
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="outline" size="sm" asChild className="rounded-full">
                 <Link href="/dashboard">
                     Sign in
                 </Link>
@@ -106,7 +106,7 @@ export default function LandingPage() {
               <p className="max-w-2xl text-lg text-gray-600">
                 Graphite3D converts 2D architectural drawings and hand sketches into professional isometric 3D visualizations using advanced AI.
               </p>
-              <div className="flex flex-col md:flex-row items-center justify-center gap-6 rounded-full border border-gray-200 px-10 py-6 shadow-sm">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6 rounded-full border border-gray-200 px-10 py-6 shadow-sm bg-transparent">
                 <div className="flex items-center gap-3">
                     <ScanSearch className="h-5 w-5 text-gray-700" />
                     <span className="text-sm font-medium text-gray-700">Recognition</span>
@@ -122,7 +122,7 @@ export default function LandingPage() {
                     <span className="text-sm font-medium text-gray-700">3D Rendering</span>
                 </div>
               </div>
-              <Button size="lg" asChild className="bg-gray-900 text-white hover:bg-gray-800">
+              <Button size="lg" asChild className="bg-gray-900 text-white hover:bg-gray-800 rounded-full">
                 <Link href="/dashboard">
                   <Sparkles className="mr-2 h-5 w-5" />
                   Get Started for Free
