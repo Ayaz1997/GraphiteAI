@@ -4,6 +4,8 @@ import { Box, Bot, ScanSearch, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ImageComparison } from '@/components/image-comparison';
+import { TryItOut } from '@/components/try-it-out';
+import './try-it-out.css';
 
 const features = [
   {
@@ -253,6 +255,8 @@ export default function LandingPage() {
               </div>
             </div>
         </section>
+
+        <TryItOut />
 
       </main>
 
