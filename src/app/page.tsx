@@ -179,20 +179,7 @@ export default function LandingPage() {
       <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
         <div className="container mx-auto flex h-16 items-center justify-between px-40">
           <Link href="/" className="flex items-center gap-2">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6 text-gray-900"
-            >
-                <path d="M12,2 L2,7 L12,12 L22,7 L12,2 Z" />
-                <polyline points="2,17 12,22 22,17" />
-                <polyline points="2,12 12,17 22,12" />
-            </svg>
+            <Image src="/logo.svg" width={24} height={24} alt="Graphite3D Logo" />
             <span className="text-lg font-semibold text-gray-900">Graphite3D</span>
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
@@ -213,7 +200,7 @@ export default function LandingPage() {
 
       <main className="flex-1 relative">
         <BackgroundGrid />
-        <section className="w-full py-20 md:py-32 lg:py-40">
+        <section className="w-full py-20 md:py-24">
           <div className="container mx-auto px-40">
             <div className="flex flex-col items-center text-center space-y-6">
               <h1 className="font-headline text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-gray-900">
@@ -258,7 +245,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="w-full py-20 md:py-32 lg:py-40">
+        <section id="features" className="w-full py-16 md:py-24">
           <div className="container mx-auto px-40">
             <div className="flex flex-col items-center text-center space-y-4">
               <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
@@ -289,7 +276,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="w-full py-20 md:py-32 lg:py-40">
+        <section className="w-full py-16 md:py-24">
             <div className="container mx-auto px-40">
                 <div className="flex flex-col items-center text-center space-y-4">
                     <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
@@ -310,7 +297,7 @@ export default function LandingPage() {
             </div>
         </section>
 
-        <section className="w-full py-20 md:py-32 lg:py-40">
+        <section className="w-full py-16 md:py-24">
             <div className="container mx-auto px-40">
               <div className="flex flex-col items-center text-center space-y-4 mb-16">
                 <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
@@ -354,7 +341,7 @@ export default function LandingPage() {
 
         <TryItOut />
 
-        <section className="w-full py-20 md:py-32 lg:py-40">
+        <section className="w-full py-16 md:py-24">
           <div className="container mx-auto px-40">
             <div className="flex flex-col items-center text-center space-y-4">
               <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
@@ -385,7 +372,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="pricing" className="w-full py-20 md:py-32 lg:py-40">
+        <section id="pricing" className="w-full py-16 md:py-24">
           <div className="container mx-auto px-40">
             <div className="flex flex-col items-center text-center space-y-4">
               <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
@@ -438,7 +425,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="faq" className="w-full py-20 md:py-32 lg:py-40">
+        <section id="faq" className="w-full py-16 md:py-24">
             <div className="container mx-auto px-40">
                 <div className="flex flex-col items-center text-center space-y-4 mb-16">
                     <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
