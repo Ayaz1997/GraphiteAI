@@ -286,7 +286,7 @@ export default function LandingPage() {
                         Transform any floor plan or drawing into striking, presentation-ready 3D imagery-no complex software required.
                     </p>
                 </div>
-                <div className="mt-12 max-w-5xl mx-auto">
+                <div className="mt-12 max-w-4xl mx-auto">
                     <ImageComparison
                         before="https://picsum.photos/seed/floorplan/1200/800"
                         after="https://picsum.photos/seed/render/1200/800"
