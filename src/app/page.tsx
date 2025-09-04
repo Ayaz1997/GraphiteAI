@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { Box, Bot, ScanSearch, Sparkles } from 'lucide-react';
 import Image from 'next/image';
@@ -105,7 +106,7 @@ export default function LandingPage() {
               <p className="max-w-2xl text-lg text-gray-600">
                 Graphite3D converts 2D architectural drawings and hand sketches into professional isometric 3D visualizations using advanced AI.
               </p>
-              <div className="flex flex-col md:flex-row items-center justify-center gap-6 rounded-full border border-gray-200 bg-white px-10 py-6 shadow-sm">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6 rounded-full border border-gray-200 px-10 py-6 shadow-sm">
                 <div className="flex items-center gap-3">
                     <ScanSearch className="h-5 w-5 text-gray-700" />
                     <span className="text-sm font-medium text-gray-700">Recognition</span>
