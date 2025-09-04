@@ -12,6 +12,7 @@ import {
     AccordionItem,
     AccordionTrigger,
   } from "@/components/ui/accordion"
+import { Header } from '@/components/header';
 
 const features = [
   {
@@ -176,32 +177,12 @@ const BackgroundGrid = () => (
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#F9FAFB] text-gray-900 font-body">
-      <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
-        <div className="container mx-auto flex h-16 items-center justify-between px-40">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.svg" width={24} height={24} alt="Graphite3D Logo" />
-            <span className="text-lg font-semibold text-gray-900">Graphite3D</span>
-          </Link>
-          <nav className="hidden items-center gap-6 md:flex">
-            <Link href="#" className="text-sm font-medium text-gray-600 hover:text-gray-900">Home</Link>
-            <Link href="#features" className="text-sm font-medium text-gray-600 hover:text-gray-900">Features</Link>
-            <Link href="#" className="text-sm font-medium text-gray-600 hover:text-gray-900">How it works</Link>
-            <Link href="#" className="text-sm font-medium text-gray-600 hover:text-gray-900">Pricing</Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" asChild className="rounded-full">
-                <Link href="/dashboard">
-                    Sign in
-                </Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="flex-1 relative">
         <BackgroundGrid />
-        <section className="w-full py-20 md:py-24">
-          <div className="container mx-auto px-40">
+        <section className="w-full py-12 md:py-16">
+          <div className="container mx-auto px-10">
             <div className="flex flex-col items-center text-center space-y-6">
               <h1 className="font-headline text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-gray-900">
                 Transform Your Sketches <br /> Into Stunning 3D Models
@@ -231,7 +212,7 @@ export default function LandingPage() {
                   Get Started for Free
                 </Link>
               </Button>
-              <div className="w-full max-w-4xl pt-12">
+              <div className="w-full max-w-4xl pt-8">
                 <Image
                   src="https://picsum.photos/1200/800"
                   width={1200}
@@ -245,8 +226,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="w-full py-16 md:py-24">
-          <div className="container mx-auto px-40">
+        <section id="features" className="w-full py-12 md:py-16">
+          <div className="container mx-auto px-10">
             <div className="flex flex-col items-center text-center space-y-4">
               <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                 Why Architects Struggle With <br /> Traditional 3D Visualization?
@@ -255,7 +236,7 @@ export default function LandingPage() {
                 2D plans don't effectively convey spatial concepts.
               </p>
             </div>
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {struggles.map((struggle) => (
                     <div key={struggle.title} className="bg-white p-8 pb-16 border border-gray-200 shadow-sm flex flex-col items-start text-left" style={{ borderRadius: '40px' }}>
                         <div className="mb-6">
@@ -276,8 +257,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="w-full py-16 md:py-24">
-            <div className="container mx-auto px-40">
+        <section className="w-full py-12 md:py-16">
+            <div className="container mx-auto px-10">
                 <div className="flex flex-col items-center text-center space-y-4">
                     <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                         No More Struggle Using Graphite3D
@@ -297,9 +278,9 @@ export default function LandingPage() {
             </div>
         </section>
 
-        <section className="w-full py-16 md:py-24">
-            <div className="container mx-auto px-40">
-              <div className="flex flex-col items-center text-center space-y-4 mb-16">
+        <section className="w-full py-12 md:py-16">
+            <div className="container mx-auto px-10">
+              <div className="flex flex-col items-center text-center space-y-4 mb-12">
                 <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                   How It Works?
                 </h2>
@@ -341,8 +322,8 @@ export default function LandingPage() {
 
         <TryItOut />
 
-        <section className="w-full py-16 md:py-24">
-          <div className="container mx-auto px-40">
+        <section className="w-full py-12 md:py-16">
+          <div className="container mx-auto px-10">
             <div className="flex flex-col items-center text-center space-y-4">
               <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                 Built For Design Professionals
@@ -351,7 +332,7 @@ export default function LandingPage() {
                 Discover what makes Graphite3D different from other 3D image generation - a leading choice for Architects, Students and Real Estate.
               </p>
             </div>
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {professionals.map((pro) => (
                     <div key={pro.title} className="bg-white p-8 pb-16 border border-gray-200 shadow-sm flex flex-col items-start text-left" style={{ borderRadius: '40px' }}>
                         <div className="mb-6">
@@ -372,8 +353,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="pricing" className="w-full py-16 md:py-24">
-          <div className="container mx-auto px-40">
+        <section id="pricing" className="w-full py-12 md:py-16">
+          <div className="container mx-auto px-10">
             <div className="flex flex-col items-center text-center space-y-4">
               <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                 Plans That Fit Your Scale
@@ -382,7 +363,7 @@ export default function LandingPage() {
                 Try converting with Free credits or choose the one that suits your needs.
               </p>
             </div>
-            <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
               {pricingPlans.map((plan) => (
                 <div
                   key={plan.name}
@@ -425,9 +406,9 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="faq" className="w-full py-16 md:py-24">
-            <div className="container mx-auto px-40">
-                <div className="flex flex-col items-center text-center space-y-4 mb-16">
+        <section id="faq" className="w-full py-12 md:py-16">
+            <div className="container mx-auto px-10">
+                <div className="flex flex-col items-center text-center space-y-4 mb-12">
                     <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                         All Your Questions Answered
                     </h2>
@@ -459,7 +440,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="w-full border-t border-gray-200 bg-white">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-6 px-40">
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-6 px-10">
           <p className="text-sm text-gray-600">
             Powered by Google NanoBanana 🍌
           </p>
