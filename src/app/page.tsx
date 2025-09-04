@@ -18,6 +18,27 @@ const features = [
   },
 ];
 
+const struggles = [
+    {
+      icon: "https://picsum.photos/seed/hourglass/64/64",
+      iconHint: "hourglass sketch",
+      title: "Time-consuming",
+      description: "Traditional 3D modelling takes 8-12 hours per project",
+    },
+    {
+      icon: "https://picsum.photos/seed/moneybag/64/64",
+      iconHint: "money bag sketch",
+      title: "Expensive software",
+      description: "Professional tools cost $200-500/ month with steep learning curves",
+    },
+    {
+      icon: "https://picsum.photos/seed/gear/64/64",
+      iconHint: "gear sketch",
+      title: "Complex workflow",
+      description: "Multiple software switches from sketch → CAD → 3D rendering",
+    },
+]
+
 const BackgroundGrid = () => (
     <div className="absolute inset-0 -z-10 h-full w-full bg-gray-50">
       <svg
@@ -48,7 +69,7 @@ const BackgroundGrid = () => (
 
 export default function LandingPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50 text-gray-900 font-body">
+    <div className="flex min-h-screen flex-col bg-[#F9FAFB] text-gray-900 font-body">
       <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2">
@@ -122,6 +143,38 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        <section id="features" className="w-full py-20 md:py-32 lg:py-40 bg-[#F9FAFB]">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
+                Why Architects Struggle With <br /> Traditional 3D Visualization?
+              </h2>
+              <p className="max-w-2xl text-lg text-gray-500">
+                2D plans don't effectively convey spatial concepts.
+              </p>
+            </div>
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                {struggles.map((struggle) => (
+                    <div key={struggle.title} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col items-center text-center">
+                        <div className="bg-gray-100 p-3 rounded-lg mb-6">
+                            <Image 
+                                src={struggle.icon}
+                                alt={`${struggle.title} icon`}
+                                width={64}
+                                height={64}
+                                data-ai-hint={struggle.iconHint}
+                                className="h-10 w-10"
+                            />
+                        </div>
+                        <h3 className="font-headline text-xl font-semibold text-gray-900 mb-2">{struggle.title}</h3>
+                        <p className="text-gray-600 text-base">{struggle.description}</p>
+                    </div>
+                ))}
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <footer className="w-full border-t border-gray-200 bg-white">
