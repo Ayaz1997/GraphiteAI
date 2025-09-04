@@ -46,7 +46,7 @@ const BackgroundGrid = () => (
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
         style={{
-            stroke: '#EAECF0',
+            stroke: 'hsl(var(--border))',
             strokeWidth: '1',
             fill: 'none',
           }}
@@ -157,18 +157,18 @@ export default function LandingPage() {
             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {struggles.map((struggle) => (
                     <div key={struggle.title} className="bg-white p-8 border border-gray-200 shadow-sm flex flex-col items-start text-left" style={{ borderRadius: '40px' }}>
-                        <div className="bg-gray-100 p-3 rounded-lg mb-6">
+                        <div className="mb-6">
                             <Image 
                                 src={struggle.icon}
                                 alt={`${struggle.title} icon`}
                                 width={64}
                                 height={64}
                                 data-ai-hint={struggle.iconHint}
-                                className="h-10 w-10"
+                                className="h-16 w-16 rounded-[16px]"
                             />
                         </div>
-                        <h3 className="font-headline text-xl font-semibold text-gray-900 mb-2">{struggle.title}</h3>
-                        <p className="text-gray-600 text-base">{struggle.description}</p>
+                        <h3 className="font-body text-xl font-semibold text-gray-900 mb-2">{struggle.title}</h3>
+                        <p className="text-secondary-foreground text-base">{struggle.description}</p>
                     </div>
                 ))}
             </div>
