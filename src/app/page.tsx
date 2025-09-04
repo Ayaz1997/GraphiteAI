@@ -43,6 +43,27 @@ const struggles = [
     },
 ]
 
+const professionals = [
+    {
+      icon: "https://picsum.photos/seed/architect/64/64",
+      iconHint: "architect sketch",
+      title: "Architects",
+      description: "Impress clients with instant 3D previews during meetings",
+    },
+    {
+      icon: "https://picsum.photos/seed/student/64/64",
+      iconHint: "student sketch",
+      title: "Students",
+      description: "Transform homework sketches into portfolio-worthy 3D models",
+    },
+    {
+      icon: "https://picsum.photos/seed/estate/64/64",
+      iconHint: "real estate sketch",
+      title: "Real Estate",
+      description: "Create compelling property marketing materials from floor plans",
+    },
+];
+
 const howItWorksSteps = [
     {
       number: "1",
@@ -257,6 +278,37 @@ export default function LandingPage() {
         </section>
 
         <TryItOut />
+
+        <section className="w-full py-20 md:py-32 lg:py-40">
+          <div className="container mx-auto px-40">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
+                Built For Design Professionals
+              </h2>
+              <p className="max-w-3xl text-lg text-gray-500">
+                Discover what makes Graphite3D different from other 3D image generation - a leading choice for Architects, Students and Real Estate.
+              </p>
+            </div>
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                {professionals.map((pro) => (
+                    <div key={pro.title} className="bg-white p-8 pb-16 border border-gray-200 shadow-sm flex flex-col items-start text-left" style={{ borderRadius: '40px' }}>
+                        <div className="mb-6">
+                            <Image
+                                src={pro.icon}
+                                alt={`${pro.title} icon`}
+                                width={64}
+                                height={64}
+                                data-ai-hint={pro.iconHint}
+                                className="h-16 w-16 rounded-[16px]"
+                            />
+                        </div>
+                        <h3 className="font-body text-xl font-semibold text-gray-900 mb-2">{pro.title}</h3>
+                        <p className="text-secondary-foreground text-base">{pro.description}</p>
+                    </div>
+                ))}
+            </div>
+          </div>
+        </section>
 
       </main>
 
