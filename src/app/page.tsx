@@ -60,7 +60,7 @@ export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#F9FAFB] text-gray-900 font-body">
       <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+        <div className="container mx-auto flex h-16 items-center justify-between px-40">
           <Link href="/" className="flex items-center gap-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ export default function LandingPage() {
       <main className="flex-1 relative">
         <BackgroundGrid />
         <section className="w-full py-20 md:py-32 lg:py-40">
-          <div className="container mx-auto px-4 md:px-6">
+          <div className="container mx-auto px-40">
             <div className="flex flex-col items-center text-center space-y-6">
               <h1 className="font-headline text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-gray-900">
                 Transform Your Sketches <br /> Into Stunning 3D Models
@@ -133,8 +133,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="w-full py-20 md:py-32 lg:py-40 bg-white">
-          <div className="container mx-auto px-4 md:px-6">
+        <section id="features" className="w-full py-20 md:py-32 lg:py-40">
+          <div className="container mx-auto px-40">
             <div className="flex flex-col items-center text-center space-y-4">
               <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                 Why Architects Struggle With <br /> Traditional 3D Visualization?
@@ -164,8 +164,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="w-full py-20 md:py-32 lg:py-40 bg-white">
-            <div className="container mx-auto px-4 md:px-6">
+        <section className="w-full py-20 md:py-32 lg:py-40">
+            <div className="container mx-auto px-40">
                 <div className="flex flex-col items-center text-center space-y-4">
                     <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                         No More Struggle Using Graphite3D
@@ -188,7 +188,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="w-full border-t border-gray-200 bg-white">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-6 px-4 md:px-6">
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-6 px-40">
           <p className="text-sm text-gray-600">
             Powered by Google NanoBanana 🍌
           </p>
