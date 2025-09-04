@@ -40,29 +40,17 @@ const struggles = [
 ]
 
 const BackgroundGrid = () => (
-    <div className="absolute inset-0 -z-10 h-full w-full bg-gray-50">
-      <svg
-        className="h-full w-full"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-        style={{
-            stroke: 'hsl(var(--border))',
-            strokeWidth: '1',
-            fill: 'none',
-          }}
-      >
-        <defs>
-          <pattern
-            id="grid"
-            width="80"
-            height="80"
-            patternUnits="userSpaceOnUse"
-          >
-            <path d="M 80 0 L 0 0 0 80" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-      </svg>
+    <div className="absolute inset-0 -z-10 h-full w-full bg-transparent">
+        <div className="relative h-full w-full">
+            <div className="absolute bottom-0 left-20 right-20 h-px bg-border"></div>
+            <div className="absolute top-32 left-0 right-0 h-px bg-border"></div>
+            <div className="absolute top-20 bottom-0 left-20 w-px bg-border"></div>
+            <div className="absolute top-20 bottom-0 right-20 w-px bg-border"></div>
+            <div className="absolute top-[120px] left-[72px] h-4 w-4 -translate-x-1/2 -translate-y-1/2 border bg-background"></div>
+            <div className="absolute top-[120px] right-[72px] h-4 w-4 -translate-x-1/2 -translate-y-1/2 border bg-background"></div>
+            <div className="absolute bottom-0 left-[80px] h-4 w-4 -translate-x-1/2 translate-y-1/2 border bg-background"></div>
+            <div className="absolute bottom-0 right-[80px] h-4 w-4 translate-x-1/2 translate-y-1/2 border bg-background"></div>
+        </div>
     </div>
   );
   
@@ -144,7 +132,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="w-full py-20 md:py-32 lg:py-40 bg-[#F9FAFB]">
+        <section id="features" className="w-full py-20 md:py-32 lg:py-40 bg-white">
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
               <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
@@ -156,7 +144,7 @@ export default function LandingPage() {
             </div>
             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {struggles.map((struggle) => (
-                    <div key={struggle.title} className="bg-white p-8 border border-gray-200 shadow-sm flex flex-col items-start text-left" style={{ borderRadius: '40px' }}>
+                    <div key={struggle.title} className="bg-white p-8 pb-16 border border-gray-200 shadow-sm flex flex-col items-start text-left" style={{ borderRadius: '40px' }}>
                         <div className="mb-6">
                             <Image 
                                 src={struggle.icon}
