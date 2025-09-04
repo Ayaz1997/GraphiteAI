@@ -69,7 +69,7 @@ export function ImageComparison({ before, after, beforeHint, afterHint }: ImageC
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-[1200/800] overflow-hidden rounded-2xl cursor-ew-resize select-none"
+      className="relative w-full aspect-[1200/800] overflow-hidden rounded-[40px] cursor-ew-resize select-none"
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
     >
