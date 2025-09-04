@@ -50,46 +50,58 @@ export default function DashboardLayout({
           <SidebarContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton href="/dashboard" isActive tooltip="Dashboard">
-                  <Home />
-                  <span>Dashboard</span>
-                </SidebarMenuButton>
+                <Link href="/dashboard">
+                  <SidebarMenuButton isActive tooltip="Dashboard">
+                    <Home />
+                    <span>Dashboard</span>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="#" tooltip="New Project">
-                  <SquarePen />
-                  <span>New Project</span>
-                  <SidebarMenuBadge>Beta</SidebarMenuBadge>
-                </SidebarMenuButton>
+                <Link href="#">
+                  <SidebarMenuButton tooltip="New Project">
+                    <SquarePen />
+                    <span>New Project</span>
+                    <SidebarMenuBadge>Beta</SidebarMenuBadge>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="#" tooltip="My Renders">
-                  <History />
-                  <span>My Renders</span>
-                </SidebarMenuButton>
+                <Link href="#">
+                  <SidebarMenuButton tooltip="My Renders">
+                    <History />
+                    <span>My Renders</span>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="#" tooltip="Favorites">
-                  <Star />
-                  <span>Favorites</span>
-                </SidebarMenuButton>
+                <Link href="#">
+                  <SidebarMenuButton tooltip="Favorites">
+                    <Star />
+                    <span>Favorites</span>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarContent>
           <SidebarFooter>
              <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Credits">
-                        <CreditCard />
-                        <span>Credits</span>
-                        <SidebarMenuBadge>12</SidebarMenuBadge>
-                    </SidebarMenuButton>
+                    <Link href="#">
+                        <SidebarMenuButton tooltip="Credits">
+                            <CreditCard />
+                            <span>Credits</span>
+                            <SidebarMenuBadge>12</SidebarMenuBadge>
+                        </SidebarMenuButton>
+                    </Link>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Settings">
-                        <Settings />
-                        <span>Settings</span>
-                    </SidebarMenuButton>
+                    <Link href="#">
+                        <SidebarMenuButton tooltip="Settings">
+                            <Settings />
+                            <span>Settings</span>
+                        </SidebarMenuButton>
+                    </Link>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                     <SidebarMenuButton tooltip="User Account">
