@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Box, Bot, ScanSearch, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ImageComparison } from '@/components/image-comparison';
 
 const features = [
   {
@@ -53,7 +54,7 @@ const BackgroundGrid = () => (
         </div>
     </div>
   );
-  
+
 
 export default function LandingPage() {
   return (
@@ -146,7 +147,7 @@ export default function LandingPage() {
                 {struggles.map((struggle) => (
                     <div key={struggle.title} className="bg-white p-8 pb-16 border border-gray-200 shadow-sm flex flex-col items-start text-left" style={{ borderRadius: '40px' }}>
                         <div className="mb-6">
-                            <Image 
+                            <Image
                                 src={struggle.icon}
                                 alt={`${struggle.title} icon`}
                                 width={64}
@@ -161,6 +162,27 @@ export default function LandingPage() {
                 ))}
             </div>
           </div>
+        </section>
+
+        <section className="w-full py-20 md:py-32 lg:py-40 bg-white">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="flex flex-col items-center text-center space-y-4">
+                    <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
+                        No More Struggle Using Graphite3D
+                    </h2>
+                    <p className="max-w-2xl text-lg text-gray-500">
+                        Transform any floor plan or drawing into striking, presentation-ready 3D imagery-no complex software required.
+                    </p>
+                </div>
+                <div className="mt-12">
+                    <ImageComparison
+                        before="https://picsum.photos/seed/floorplan/1200/800"
+                        after="https://picsum.photos/seed/render/1200/800"
+                        beforeHint="2d floorplan"
+                        afterHint="3d render"
+                    />
+                </div>
+            </div>
         </section>
 
       </main>
