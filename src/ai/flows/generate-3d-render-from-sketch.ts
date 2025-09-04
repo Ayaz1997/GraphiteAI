@@ -21,11 +21,11 @@ const Generate3DRenderFromSketchInputSchema = z.object({
   textPrompt: z.string().optional().describe('Optional text prompt to further refine the rendering style.'),
   moodBoardDataUris: z
     .array(z.string())
+    .max(4)
     .optional()
     .describe(
       "An array of mood board images as data URIs. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    )
-    .max(4),
+    ),
 });
 
 export type Generate3DRenderFromSketchInput = z.infer<typeof Generate3DRenderFromSketchInputSchema>;
