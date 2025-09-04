@@ -41,6 +41,24 @@ const struggles = [
     },
 ]
 
+const howItWorksSteps = [
+    {
+      number: "1",
+      title: "Upload a floor plan",
+      description: "Upload hand-drawn sketches or existing 2D plans",
+    },
+    {
+      number: "2",
+      title: "Instant 3D Generation",
+      description: "AI creates professional isometric 3D models in seconds",
+    },
+    {
+      number: "3",
+      title: "Professional Output",
+      description: "Export high-resolution images perfect for client presentations",
+    },
+  ];
+
 const BackgroundGrid = () => (
     <div className="absolute inset-0 -z-10 h-full w-full bg-transparent">
         <div className="relative h-full w-full">
@@ -191,6 +209,48 @@ export default function LandingPage() {
                         afterHint="3d render"
                     />
                 </div>
+            </div>
+        </section>
+
+        <section className="w-full py-20 md:py-32 lg:py-40">
+            <div className="container mx-auto px-40">
+              <div className="flex flex-col items-center text-center space-y-4 mb-16">
+                <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
+                  How It Works?
+                </h2>
+                <p className="max-w-2xl text-lg text-gray-500">
+                  From Sketch to 3D in Three Simple Steps.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="flex flex-col gap-12">
+                  {howItWorksSteps.map((step) => (
+                    <div key={step.number} className="flex items-start gap-8">
+                      <div className="font-headline text-8xl text-gray-200 leading-none">
+                        {step.number}
+                      </div>
+                      <div className="pt-2">
+                        <h3 className="font-headline text-2xl font-medium text-gray-900 mb-2">
+                          {step.title}
+                        </h3>
+                        <p className="text-gray-600">{step.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <div className="relative aspect-video w-full rounded-2xl bg-gray-200 overflow-hidden shadow-2xl">
+                    <video
+                      src="https://framerusercontent.com/assets/5W2B3c5sA1E5oY2h3cE3iYwY.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
         </section>
 
