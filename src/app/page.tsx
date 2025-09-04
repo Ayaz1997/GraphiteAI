@@ -105,17 +105,17 @@ export default function LandingPage() {
               <p className="max-w-2xl text-lg text-gray-600">
                 Graphite3D converts 2D architectural drawings and hand sketches into professional isometric 3D visualizations using advanced AI.
               </p>
-              <div className="flex items-center justify-center gap-4 rounded-full border border-gray-200 bg-white px-6 py-2 shadow-sm">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6 rounded-full border border-gray-200 bg-white px-10 py-6 shadow-sm">
                 <div className="flex items-center gap-3">
                     <ScanSearch className="h-5 w-5 text-gray-700" />
                     <span className="text-sm font-medium text-gray-700">Recognition</span>
                 </div>
-                <div className="h-6 w-px bg-gray-200"></div>
+                <div className="h-6 w-px bg-gray-200 hidden md:block"></div>
                 <div className="flex items-center gap-3">
                     <Bot className="h-5 w-5 text-gray-700" />
                     <span className="text-sm font-medium text-gray-700">AI Processing</span>
                 </div>
-                <div className="h-6 w-px bg-gray-200"></div>
+                <div className="h-6 w-px bg-gray-200 hidden md:block"></div>
                 <div className="flex items-center gap-3">
                     <Box className="h-5 w-5 text-gray-700" />
                     <span className="text-sm font-medium text-gray-700">3D Rendering</span>
