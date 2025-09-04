@@ -1,11 +1,17 @@
 
 import { Button } from '@/components/ui/button';
-import { Box, Bot, ScanSearch, Sparkles, Check } from 'lucide-react';
+import { Box, Bot, ScanSearch, Sparkles, Check, PlusCircle, MinusCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ImageComparison } from '@/components/image-comparison';
 import { TryItOut } from '@/components/try-it-out';
 import './try-it-out.css';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+  } from "@/components/ui/accordion"
 
 const features = [
   {
@@ -123,6 +129,33 @@ const howItWorksSteps = [
       highlighted: false,
     },
   ];
+
+  const faqs = [
+    {
+      question: "Is there a free trial available?",
+      answer: "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
+    },
+    {
+      question: "Can I change my plan later?",
+      answer: "Yes, you can upgrade, downgrade or cancel your plan at any time.",
+    },
+    {
+      question: "What is your cancellation policy?",
+      answer: "You can cancel your subscription at any time. Your subscription will remain active until the end of the current billing cycle.",
+    },
+    {
+      question: "Can other info be added to an invoice?",
+      answer: "Yes, you can add custom information to your invoices, such as your company's address and VAT number.",
+    },
+    {
+      question: "How does billing work?",
+      answer: "We bill you at the beginning of each billing cycle. You can pay with a credit card.",
+    },
+    {
+      question: "How do I change my account email?",
+      answer: "You can change your account email from your account settings page.",
+    },
+  ]
 
 const BackgroundGrid = () => (
     <div className="absolute inset-0 -z-10 h-full w-full bg-transparent">
@@ -403,6 +436,37 @@ export default function LandingPage() {
               ))}
             </div>
           </div>
+        </section>
+
+        <section id="faq" className="w-full py-20 md:py-32 lg:py-40">
+            <div className="container mx-auto px-40">
+                <div className="flex flex-col items-center text-center space-y-4 mb-16">
+                    <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
+                        All Your Questions Answered
+                    </h2>
+                    <p className="max-w-2xl text-lg text-gray-500">
+                        Everything you need to know about the product and billing.
+                    </p>
+                </div>
+                <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto" defaultValue='item-0'>
+                {faqs.map((faq, i) => (
+                    <AccordionItem key={i} value={`item-${i}`} className="border-b">
+                    <AccordionTrigger className="text-lg font-medium text-gray-900 hover:no-underline group">
+                        <span className="flex items-center gap-4">
+                            <PlusCircle className="h-6 w-6 text-gray-400 group-data-[state=open]:hidden" />
+                            <MinusCircle className="h-6 w-6 text-gray-400 hidden group-data-[state=open]:block" />
+                            {faq.question}
+                        </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-2">
+                        <div className="bg-[#F2F4F7] p-6 rounded-2xl text-gray-600 text-base">
+                            {faq.answer}
+                        </div>
+                    </AccordionContent>
+                    </AccordionItem>
+                ))}
+                </Accordion>
+            </div>
         </section>
 
       </main>
