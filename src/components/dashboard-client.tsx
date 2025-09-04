@@ -17,6 +17,8 @@ import {
   Download,
   Wand2,
   Image as ImageIcon,
+  Palette,
+  Pilcrow,
 } from 'lucide-react';
 import { FileUploader } from './file-uploader';
 import { useToast } from '@/hooks/use-toast';
@@ -24,6 +26,9 @@ import { generateRenderAction } from '@/lib/actions';
 import { useActionState } from 'react';
 import { cn } from '@/lib/utils';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
+import { Textarea } from './ui/textarea';
+import { MultipleFileUploader } from './multiple-file-uploader';
 
 const initialState = {
   renderDataUri: null,
@@ -33,6 +38,7 @@ const initialState = {
 export function DashboardClient() {
   const { toast } = useToast();
   const [sketch, setSketch] = useState<string | null>(null);
+  const [moodBoard, setMoodBoard] = useState<(string | null)[]>([]);
   const [formState, formAction, isPending] = useActionState(generateRenderAction, initialState);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -64,9 +70,9 @@ export function DashboardClient() {
           <Card className="h-full flex flex-col">
             <CardHeader>
               <CardTitle className="font-headline text-2xl">Create Render</CardTitle>
-              <CardDescription>Upload an architectural sketch to generate a 3D model.</CardDescription>
+              <CardDescription>Upload a sketch to generate a 3D model.</CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 overflow-y-auto">
+            <CardContent className="flex-1 overflow-y-auto p-4">
               <form action={formAction} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="sketch-upload">
@@ -75,6 +81,37 @@ export function DashboardClient() {
                   </Label>
                   <FileUploader id="sketch-upload" name="sketch" onFileLoad={setSketch} required />
                 </div>
+
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="advanced-options">
+                    <AccordionTrigger>Advanced Options</AccordionTrigger>
+                    <AccordionContent className="space-y-6 pt-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="text-prompt">
+                          <Pilcrow className="inline-block mr-2 h-4 w-4" />
+                          Text Prompt
+                        </Label>
+                        <Textarea
+                          id="text-prompt"
+                          name="textPrompt"
+                          placeholder="e.g., 'Make it a modern style with lots of natural light.'"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="mood-board-upload">
+                          <Palette className="inline-block mr-2 h-4 w-4" />
+                          Mood Board (up to 4)
+                        </Label>
+                        <MultipleFileUploader
+                          name="moodBoard"
+                          onFilesLoad={setMoodBoard}
+                          maxFiles={4}
+                        />
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+
                 <Button type="submit" className="w-full font-semibold" disabled={!sketch || isPending}>
                   <Wand2 className="mr-2 h-4 w-4" />
                   {isPending ? 'Generating...' : 'Generate Render'}
