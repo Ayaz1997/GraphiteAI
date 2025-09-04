@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { Box, Bot, ScanSearch, Sparkles, Check, PlusCircle, MinusCircle } from 'lucide-react';
+import { Box, Bot, ScanSearch, Sparkles, Check, PlusCircle, MinusCircle, BrainCircuit, FullscreenIcon, BrainCircuitIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ImageComparison } from '@/components/image-comparison';
@@ -16,11 +16,11 @@ import { Header } from '@/components/header';
 
 const features = [
   {
-    icon: <ScanSearch className="h-5 w-5 text-gray-500" />,
+    icon: <FullscreenIcon className="h-5 w-5 text-gray-500" />,
     label: 'Recognition',
   },
   {
-    icon: <Bot className="h-5 w-5 text-gray-500" />,
+    icon: <BrainCircuit className="h-5 w-5 text-gray-500" />,
     label: 'AI Processing',
   },
   {
@@ -31,19 +31,19 @@ const features = [
 
 const struggles = [
     {
-      icon: "https://picsum.photos/seed/hourglass/64/64",
+      icon: "/images/sand-time.png",
       iconHint: "hourglass sketch",
       title: "Time-consuming",
       description: "Traditional 3D modelling takes 8-12 hours per project",
     },
     {
-      icon: "https://picsum.photos/seed/moneybag/64/64",
+      icon: "/images/money-bag.png",
       iconHint: "money bag sketch",
       title: "Expensive software",
       description: "Professional tools cost $200-500/ month with steep learning curves",
     },
     {
-      icon: "https://picsum.photos/seed/gear/64/64",
+      icon: "/images/gear.png",
       iconHint: "gear sketch",
       title: "Complex workflow",
       description: "Multiple software switches from sketch → CAD → 3D rendering",
@@ -52,19 +52,19 @@ const struggles = [
 
 const professionals = [
     {
-      icon: "https://picsum.photos/seed/architect/64/64",
+      icon: "/images/architect.png",
       iconHint: "architect sketch",
       title: "Architects",
       description: "Impress clients with instant 3D previews during meetings",
     },
     {
-      icon: "https://picsum.photos/seed/student/64/64",
+      icon: "/images/student.png",
       iconHint: "student sketch",
       title: "Students",
       description: "Transform homework sketches into portfolio-worthy 3D models",
     },
     {
-      icon: "https://picsum.photos/seed/estate/64/64",
+      icon: "/images/real-estate.png",
       iconHint: "real estate sketch",
       title: "Real Estate",
       description: "Create compelling property marketing materials from floor plans",
@@ -192,17 +192,17 @@ export default function LandingPage() {
               </p>
               <div className="flex flex-col md:flex-row items-center justify-center gap-6 rounded-full border border-gray-200 px-10 py-6 shadow-sm bg-transparent">
                 <div className="flex items-center gap-3">
-                    <ScanSearch className="h-5 w-5 text-gray-700" />
+                    <FullscreenIcon className="h-6 w-6 text-gray-700" />
                     <span className="text-sm font-medium text-gray-700">Recognition</span>
                 </div>
                 <div className="h-6 w-px bg-gray-200 hidden md:block"></div>
                 <div className="flex items-center gap-3">
-                    <Bot className="h-5 w-5 text-gray-700" />
+                    <BrainCircuitIcon className="h-6 w-6 text-gray-700" />
                     <span className="text-sm font-medium text-gray-700">AI Processing</span>
                 </div>
                 <div className="h-6 w-px bg-gray-200 hidden md:block"></div>
                 <div className="flex items-center gap-3">
-                    <Box className="h-5 w-5 text-gray-700" />
+                    <Box className="h-6 w-6 text-gray-700" />
                     <span className="text-sm font-medium text-gray-700">3D Rendering</span>
                 </div>
               </div>
@@ -214,9 +214,9 @@ export default function LandingPage() {
               </Button>
               <div className="w-full max-w-4xl pt-8">
                 <Image
-                  src="https://picsum.photos/1200/800"
-                  width={1200}
-                  height={800}
+                  src="/images/hero-image.png"
+                  width={480}
+                  height={480}
                   alt="Architectural sketch to 3D model conversion"
                   data-ai-hint="isometric building"
                   className="mx-auto rounded-lg"
@@ -269,8 +269,8 @@ export default function LandingPage() {
                 </div>
                 <div className="mt-12 max-w-4xl mx-auto">
                     <ImageComparison
-                        before="https://picsum.photos/seed/floorplan/1200/800"
-                        after="https://picsum.photos/seed/render/1200/800"
+                        before="/images/3d-plan.png"
+                        after="/images/2d-plan.png"
                         beforeHint="2d floorplan"
                         afterHint="3d render"
                     />
@@ -292,11 +292,11 @@ export default function LandingPage() {
                 <div className="flex flex-col gap-12">
                   {howItWorksSteps.map((step) => (
                     <div key={step.number} className="flex items-start gap-8">
-                      <div className="font-headline text-8xl text-gray-200 leading-none">
+                      <div className="font-headline text-8xl text-gray-900 leading-none">
                         {step.number}
                       </div>
                       <div className="pt-2">
-                        <h3 className="font-headline text-2xl font-medium text-gray-900 mb-2">
+                        <h3 className="font-body text-xl font-medium text-gray-900 mb-2">
                           {step.title}
                         </h3>
                         <p className="text-gray-600">{step.description}</p>
@@ -305,9 +305,9 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <div>
-                  <div className="relative aspect-video w-full rounded-2xl bg-gray-200 overflow-hidden shadow-2xl">
+                  <div className="relative aspect-video w-full rounded-2xl bg-gray-200 overflow-hidden">
                     <video
-                      src="https://framerusercontent.com/assets/5W2B3c5sA1E5oY2h3cE3iYwY.mp4"
+                      src="/images/how-it-works.mp4"
                       autoPlay
                       loop
                       muted
