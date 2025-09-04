@@ -156,7 +156,7 @@ export default function LandingPage() {
             </div>
             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {struggles.map((struggle) => (
-                    <div key={struggle.title} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col items-center text-center">
+                    <div key={struggle.title} className="bg-white p-8 border border-gray-200 shadow-sm flex flex-col items-start text-left" style={{ borderRadius: '40px' }}>
                         <div className="bg-gray-100 p-3 rounded-lg mb-6">
                             <Image 
                                 src={struggle.icon}
