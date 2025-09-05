@@ -35,7 +35,7 @@ export function TryItOut() {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     {/* Left Column */}
-                    <div className="relative flex flex-col items-center order-2 lg:order-1">
+                    <div className="relative flex flex-col items-center order-last lg:order-first">
                         <div className="relative w-full max-w-md h-80">
                             <div className="sketch-image-container sketch-image-2">
                                  <Image
@@ -84,7 +84,7 @@ export function TryItOut() {
                     </div>
 
                     {/* Right Column */}
-                    <div className="w-full order-1 lg:order-2">
+                    <div className="w-full order-first lg:order-last">
                        <InteractiveFileUploader 
                          placeholders={placeholderImages}
                          onFileSelect={setSelectedFile}
