@@ -33,9 +33,9 @@ export function Header() {
                         <span className="sr-only">Toggle Menu</span>
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="top" className="bg-transparent p-4 border-0">
+                <SheetContent side="top" className="bg-white shadow-lg rounded-[32px] p-4 pt-0 m-4 border-0">
                     <div className="flex flex-col">
-                        <div className="p-4 pt-0 flex items-center justify-between bg-white/80 backdrop-blur-lg rounded-t-lg">
+                        <div className="p-4 pt-10 flex items-center justify-between rounded-t-lg">
                             <Link href="/" className="flex items-center gap-2">
                                 <Image src="/images/logo.png" width={120} height={32} alt="Graphite3D Logo" />
                             </Link>
@@ -46,7 +46,7 @@ export function Header() {
                                 </Button>
                             </SheetClose>
                         </div>
-                        <div className="bg-white border border-gray-200/80 p-6 rounded-[32px] shadow-lg">
+                        <div className="bg-white p-4">
                             <div className="flex flex-col space-y-4 text-lg font-medium">
                                 <SheetClose asChild>
                                     <Link href="#" className="text-gray-800 hover:text-primary">Home</Link>
