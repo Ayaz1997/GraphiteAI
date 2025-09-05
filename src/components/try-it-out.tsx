@@ -24,7 +24,7 @@ export function TryItOut() {
 
     return (
         <section className="w-full py-20 md:py-32 lg:py-40 bg-[#F9FAFB]">
-            <div className="container mx-auto px-40">
+            <div className="container mx-auto px-4 md:px-10">
                 <div className="flex flex-col items-center text-center space-y-4 mb-16">
                     <h2 className="font-headline text-4xl md:text-5xl font-medium tracking-tight text-gray-800">
                         Try It Out
@@ -35,7 +35,7 @@ export function TryItOut() {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     {/* Left Column */}
-                    <div className="relative flex flex-col items-center">
+                    <div className="relative flex flex-col items-center order-2 lg:order-1">
                         <div className="relative w-full max-w-md h-80">
                             <div className="sketch-image-container sketch-image-2">
                                  <Image
@@ -68,14 +68,6 @@ export function TryItOut() {
                             data-ai-hint="arrow"
                             className="left-[-60] top-20 absolute origin-top-left"
                                 />
-                            {/* <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10 10 Q 90 10, 90 90" stroke="#9CA3AF" strokeWidth="2" strokeDasharray="5,5" fill="none" markerEnd="url(#arrowhead)" />
-                                <defs>
-                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                                        <polygon points="0 0, 10 3.5, 0 7" fill="#9CA3AF" />
-                                    </marker>
-                                </defs>
-                            </svg> */}
                         </div>
 
                         <div className="mt-8 w-full max-w-md text-left">
@@ -92,7 +84,7 @@ export function TryItOut() {
                     </div>
 
                     {/* Right Column */}
-                    <div className="w-full">
+                    <div className="w-full order-1 lg:order-2">
                        <InteractiveFileUploader 
                          placeholders={placeholderImages}
                          onFileSelect={setSelectedFile}

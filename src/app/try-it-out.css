@@ -34,4 +34,17 @@
     .arrow-container {
         display: none;
     }
+    
+    .sketch-image-container {
+        width: 60%;
+        height: 60%;
+    }
+
+    .sketch-image-1 {
+        left: 10%;
+    }
+
+    .sketch-image-2 {
+        right: 10%;
+    }
 }
