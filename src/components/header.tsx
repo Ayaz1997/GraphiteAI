@@ -33,33 +33,43 @@ export function Header() {
                         <span className="sr-only">Toggle Menu</span>
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="top" className="p-0 bg-transparent border-0">
-                    <div className="p-4 flex items-center justify-between bg-white border-b border-gray-200">
-                         <Link href="/" className="flex items-center gap-2">
-                            <Image src="/images/logo.png" width={120} height={32} alt="Graphite3D Logo" />
-                        </Link>
-                        <SheetClose asChild>
-                            <Button variant="ghost" size="icon">
-                                <X className="h-5 w-5" />
-                                <span className="sr-only">Close</span>
-                            </Button>
-                        </SheetClose>
-                    </div>
-                    <div className="p-4 bg-white">
-                        <div className="bg-background p-6 rounded-2xl">
+                <SheetContent side="top" className="bg-transparent p-4 border-0">
+                    <div className="flex flex-col">
+                        <div className="p-4 pt-0 flex items-center justify-between bg-white/80 backdrop-blur-lg rounded-t-lg">
+                            <Link href="/" className="flex items-center gap-2">
+                                <Image src="/images/logo.png" width={120} height={32} alt="Graphite3D Logo" />
+                            </Link>
+                            <SheetClose asChild>
+                                <Button variant="ghost" size="icon">
+                                    <X className="h-5 w-5" />
+                                    <span className="sr-only">Close</span>
+                                </Button>
+                            </SheetClose>
+                        </div>
+                        <div className="bg-white border border-gray-200/80 p-6 rounded-[32px] shadow-lg">
                             <div className="flex flex-col space-y-4 text-lg font-medium">
-                                <Link href="#" className="text-gray-800 hover:text-primary">Home</Link>
-                                <Link href="#features" className="text-gray-800 hover:text-primary">Features</Link>
-                                <Link href="#" className="text-gray-800 hover:text-primary">How it works</Link>
-                                <Link href="#" className="text-gray-800 hover:text-primary">Pricing</Link>
+                                <SheetClose asChild>
+                                    <Link href="#" className="text-gray-800 hover:text-primary">Home</Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link href="#features" className="text-gray-800 hover:text-primary">Features</Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link href="#" className="text-gray-800 hover:text-primary">How it works</Link>
+                                </SheetClose>
+                                <SheetClose asChild>
+                                    <Link href="#" className="text-gray-800 hover:text-primary">Pricing</Link>
+                                </SheetClose>
                             </div>
                             <div className="mt-6 pt-6 border-t border-gray-200">
-                                <Button className="w-full rounded-full" variant="outline" size="lg" asChild>
-                                    <Link href="#">
-                                        <User className="mr-2 h-4 w-4" />
-                                        Sign in
-                                    </Link>
-                                </Button>
+                                <SheetClose asChild>
+                                     <Button className="w-full rounded-full" variant="outline" size="lg" asChild>
+                                        <Link href="#">
+                                            <User className="mr-2 h-4 w-4" />
+                                            Sign in
+                                        </Link>
+                                    </Button>
+                                </SheetClose>
                             </div>
                         </div>
                     </div>
