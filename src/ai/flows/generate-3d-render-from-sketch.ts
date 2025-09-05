@@ -48,7 +48,9 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     outputSchema: Generate3DRenderFromSketchOutputSchema,
   },
   async input => {
-    const promptText = `Given a 2D floor plan diagram or sketch, generate a 3D top-down architectural model. The output should maintain the exact layout and spatial relationships of rooms, walls, doors, and windows as depicted in the input. Ensure that furniture and fixtures are accurately represented. The perspective should be a clear, overhead, slightly angled view.`;
+    const promptText = `Given a 2D floor plan diagram or hand drawn sketch, generate a 3D top-down architectural model. The output should maintain the exact layout and spatial relationships of rooms, walls, doors, and windows as depicted in the input. Ensure that furniture and fixtures (e.g., beds, sofas, tables, kitchen appliances, bathroom fixtures) are accurately represented in their respective locations and orientations, mimicking the style and level of detail shown in the provided examples. The rendering style should be consistent with the clean, modern, and well-lit aesthetic of the example images, featuring appropriate textures for flooring (hardwood, carpet, tile), walls, and furniture. The perspective should be a clear, overhead, slightly angled view, similar to an axonometric projection, allowing for a comprehensive understanding of the entire floor plan. All elements should be proportionally scaled and realistically rendered to create a professional and appealing visualization of the architectural space.`;
+
+    //Given a 2D floor plan diagram or sketch, generate a 3D top-down architectural model. The output should maintain the exact layout and spatial relationships of rooms, walls, doors, and windows as depicted in the input. Ensure that furniture and fixtures are accurately represented. The perspective should be a clear, overhead, slightly angled view.
 
     const promptParts: any[] = [
       {text: promptText},
