@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-inherit backdrop-blur-lg">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2">
             <Image src="/images/logo.png" width={120} height={32} alt="Graphite3D Logo" />

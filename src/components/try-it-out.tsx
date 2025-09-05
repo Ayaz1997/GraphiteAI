@@ -90,8 +90,8 @@ export function TryItOut() {
                          onFileSelect={setSelectedFile}
                        />
                     </div>
+                    </div>
                 </div>
-            </div>
         </section>
     );
 }
