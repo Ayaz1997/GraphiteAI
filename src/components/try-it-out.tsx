@@ -66,8 +66,8 @@ export function TryItOut() {
                             height={60}
                             alt="arrow right"
                             data-ai-hint="arrow"
-                            className="left-[-60] top-20 absolute origin-top-left"
-                                />
+                            className="left-[-100] top-20 absolute origin-top-left" //adjust arrow position here
+                        />
                         </div>
 
                         <div className="mt-8 w-full max-w-md text-left">

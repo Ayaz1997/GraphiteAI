@@ -190,19 +190,21 @@ export default function LandingPage() {
               <p className="max-w-2xl text-lg text-gray-600">
                 Graphite3D converts 2D architectural drawings and hand sketches into professional isometric 3D visualizations using advanced AI.
               </p>
-              <div className="inline-block rounded-full border border-gray-200 px-4 py-3 md:px-6 md:py-4 shadow-sm bg-transparent">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2 md:gap-x-6">
+              <div className="inline-block rounded-full border border-gray-200 px-4 py-3 md:px-8 md:py-6 shadow-sm bg-transparent">
+                <div className="flex flex-row items-center gap-x-4 md:gap-x-6">
                     <div className="flex items-center gap-2">
                         <FullscreenIcon className="h-5 w-5 text-gray-700" />
-                        <span className="text-sm font-medium text-gray-700">Recognition</span>
+                        <span className="text-xs md:text-sm font-medium text-gray-700"> Image Recognition</span>
                     </div>
+                    <div className="h-6 w-px bg-gray-200 hidden md:block"></div>
                     <div className="flex items-center gap-2">
                         <BrainCircuitIcon className="h-5 w-5 text-gray-700" />
-                        <span className="text-sm font-medium text-gray-700">AI Processing</span>
+                        <span className="text-xs md:text-sm font-medium text-gray-700">AI Processing</span>
                     </div>
-                    <div className="col-span-2 md:col-span-1 flex justify-center items-center gap-2">
+                    <div className="h-6 w-px bg-gray-200 hidden md:block"></div>
+                    <div className="flex items-center gap-2">
                         <Box className="h-5 w-5 text-gray-700" />
-                        <span className="text-sm font-medium text-gray-700">3D Rendering</span>
+                        <span className="text-xs md:text-sm font-medium text-gray-700">3D Rendering</span>
                     </div>
                 </div>
               </div>
