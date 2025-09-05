@@ -18,14 +18,6 @@ const Generate3DRenderFromSketchInputSchema = z.object({
     .describe(
       "A 2D architectural sketch, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
-  textPrompt: z.string().optional().describe('Optional text prompt to further refine the rendering style.'),
-  moodBoardDataUris: z
-    .array(z.string())
-    .max(4)
-    .optional()
-    .describe(
-      "An array of mood board images as data URIs. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
 });
 
 export type Generate3DRenderFromSketchInput = z.infer<typeof Generate3DRenderFromSketchInputSchema>;
@@ -56,22 +48,11 @@ const generate3DRenderFromSketchFlow = ai.defineFlow(
     outputSchema: Generate3DRenderFromSketchOutputSchema,
   },
   async input => {
-    let promptText = `Given a 2D floor plan diagram or sketch, generate a 3D top-down architectural model. The output should maintain the exact layout and spatial relationships of rooms, walls, doors, and windows as depicted in the input. Ensure that furniture and fixtures are accurately represented. The perspective should be a clear, overhead, slightly angled view.`;
-
-    if (input.textPrompt) {
-        promptText += `\n\nApply the following refinements: "${input.textPrompt}"`;
-    }
-
-    if (input.moodBoardDataUris && input.moodBoardDataUris.length > 0) {
-        promptText += `\n\nUse the provided mood board images to strongly influence the colors, textures, materials, and overall aesthetic of the render.`;
-    }
+    const promptText = `Given a 2D floor plan diagram or sketch, generate a 3D top-down architectural model. The output should maintain the exact layout and spatial relationships of rooms, walls, doors, and windows as depicted in the input. Ensure that furniture and fixtures are accurately represented. The perspective should be a clear, overhead, slightly angled view.`;
 
     const promptParts: any[] = [
       {text: promptText},
       {media: {url: input.sketchDataUri}},
-      ...(input.moodBoardDataUris || []).map(uri => ({
-        media: {url: uri},
-      })),
     ];
 
     try {
